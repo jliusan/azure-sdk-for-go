@@ -6,24 +6,87 @@ import (
 	"testing"
 	"time"
 
+	"github.com/Azure/azure-sdk-for-go/sdk/azcore"
+	"github.com/Azure/azure-sdk-for-go/sdk/azcore/arm"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
 	"github.com/Azure/azure-sdk-for-go/sdk/azidentity"
+	"github.com/Azure/azure-sdk-for-go/sdk/internal/recording"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/internal/v3/testutil"
 	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/resources/armresources"
 	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/sql/armsql"
 	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/suite"
 )
 
 // C:\Users\v-liujudy\go\pkg\mod\github.com\!azure\azure-sdk-for-go\sdk\resourcemanager
 const (
 	SubscriptionID    = "faa080af-c1d8-40ad-9cce-e1a450ca5b57"
-	ResourceGroupName = "judytest02"
+	ResourceGroupName = "judytest04"
 	ResourceLocation  = "eastus2"
-	SqlServerName     = "judy-sql-test002"
-	DatabaseName      = "test02"
+	SqlServerName     = "judy-sql-test001"
+	DatabaseName      = "test01"
+	PathToPackage     = "sdk/resourcemanager/sql/armsql/testdata"
 )
 
-func TestArmMysql(t *testing.T) {
+type SqlAccessTestSuite struct {
+	suite.Suite
+	ctx               context.Context
+	cred              azcore.TokenCredential
+	options           *arm.ClientOptions
+	sqlServersName    string
+	location          string
+	resourceGroupName string
+	subscriptionId    string
+}
 
+func (testsuite *SqlAccessTestSuite) SetupSuite() {
+	testutil.StartRecording(testsuite.T(), PathToPackage)
+	testsuite.ctx = context.Background()
+	testsuite.cred, testsuite.options = testutil.GetCredAndClientOptions(testsuite.T())
+	testsuite.location = recording.GetEnvVariable("LOCATION", ResourceLocation)
+	testsuite.resourceGroupName = recording.GetEnvVariable("RESOURCE_GROUP_NAME", ResourceGroupName)
+	testsuite.subscriptionId = recording.GetEnvVariable("AZURE_SUBSCRIPTION_ID", SubscriptionID)
+
+	clientFactory, err := armresources.NewClientFactory(testsuite.subscriptionId, testsuite.cred, nil)
+	client := clientFactory.NewResourceGroupsClient()
+	ctx := context.Background()
+
+	_, err = client.CreateOrUpdate(ctx, ResourceGroupName, armresources.ResourceGroup{
+		Location: to.Ptr(ResourceLocation),
+	}, nil)
+	testsuite.Require().NoError(err)
+	testsuite.resourceGroupName = ResourceGroupName
+	fmt.Println("create new resource group ", ResourceGroupName, " of ", SubscriptionID, "successfully")
+}
+
+func (testsuite *SqlAccessTestSuite) TestCreateServer() {
+	fmt.Println("start to create sql server~")
+	// create new msql resource under group
+	sqlClientFactory, err := armsql.NewClientFactory(SubscriptionID, testsuite.cred, nil)
+	testsuite.Require().NoError(err)
+	serverclient := sqlClientFactory.NewServersClient()
+
+	ctx := context.Background()
+	server, err := createServer(testsuite.ctx, serverclient)
+	testsuite.Require().NoError(err)
+	fmt.Println("create serverId", *server.ID)
+
+	server, err = getServer(ctx, serverclient)
+	testsuite.Require().NoError(err)
+	fmt.Println("get server:", *server.ID)
+
+	// create database
+	databasesClient := sqlClientFactory.NewDatabasesClient()
+	testsuite.Require().NotNil(databasesClient)
+	database, err := createDatabase(ctx, databasesClient)
+	testsuite.Require().NoError(err)
+	testsuite.Require().NotNil(database)
+
+	fmt.Println("database:", *database.ID)
+}
+
+func TestSqlAccessTestSuite(t *testing.T) {
+	suite.Run(t, new(SqlAccessTestSuite))
 }
 
 func TestCreateOrUpdateGroupOfSubscriptionId(t *testing.T) {
@@ -56,9 +119,6 @@ func TestCreateOrUpdateGroupOfSubscriptionId(t *testing.T) {
 	assert.Nil(t, err)
 	assert.True(t, checkGroupExistResponse.Success)
 	fmt.Println("create new resource group ", ResourceGroupName, " of ", subsriptionId, "successfully")
-
-	// NewTestDeleteGroupOfSubscriptionId(t, ctx, client)
-
 }
 
 func NewTestDeleteGroupOfSubscriptionId(t *testing.T, ctx context.Context, client *armresources.ResourceGroupsClient) {
@@ -111,14 +171,6 @@ func TestCreateOrUpdateArmMysqlResourceOnGroup(t *testing.T) {
 
 }
 
-func TestCreateDataBase(t *testing.T) {
-
-}
-
-func TestGetListOfArmMysqlResourceOnGroup(t *testing.T) {
-
-}
-
 func TestCleanUpArmResourceGroup(t *testing.T) {
 	cred := GetAzureCredentail()
 	clientFactory, err := armresources.NewClientFactory(SubscriptionID, cred, nil)
@@ -137,10 +189,6 @@ func TestCleanUpArmResourceGroup(t *testing.T) {
 	assert.False(t, checkGroupExistResponse.Success)
 }
 
-func TestArmMysqlInstance(t *testing.T) {
-
-}
-
 func GetAzureCredentail() (cred *azidentity.DefaultAzureCredential) {
 	// get default credential
 	cred, err := azidentity.NewDefaultAzureCredential(nil)
@@ -152,7 +200,7 @@ func GetAzureCredentail() (cred *azidentity.DefaultAzureCredential) {
 	return cred
 }
 
-func CreateAzureResourceGroup() (group *armresources.ResourceGroup, err error) {
+func CreateAzureResourceGroup(groupName string) (group *armresources.ResourceGroup, err error) {
 	cred := GetAzureCredentail()
 	clientFactory, err := armresources.NewClientFactory(SubscriptionID, cred, nil)
 	if err != nil {
@@ -160,7 +208,7 @@ func CreateAzureResourceGroup() (group *armresources.ResourceGroup, err error) {
 		return
 	}
 	client := clientFactory.NewResourceGroupsClient()
-	createOrUpdateGroupResponse, err := client.CreateOrUpdate(context.TODO(), ResourceGroupName, armresources.ResourceGroup{
+	createOrUpdateGroupResponse, err := client.CreateOrUpdate(context.TODO(), groupName, armresources.ResourceGroup{
 		Location: to.Ptr(ResourceLocation),
 	}, nil)
 	if err != nil {
