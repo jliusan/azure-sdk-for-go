@@ -3,10 +3,13 @@ package main
 import (
 	"context"
 	"fmt"
+	"net/http"
 	"os"
 
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/arm"
+	"github.com/Azure/azure-sdk-for-go/sdk/azcore/policy"
+	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"github.com/Azure/azure-sdk-for-go/sdk/azidentity"
 	armnetwork "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/network/armnetwork/v6"
 )
@@ -25,17 +28,35 @@ func main() {
 	if err != nil {
 		printErr(err)
 	}
-
-	printNetworkInterfaces(context.Background(), creds, "faa080af-c1d8-40ad-9cce-e1a450ca5b57", "judytest01")
+	var rawResponse *http.Response
+	ctx := context.TODO() // your context
+	ctxWithResp := runtime.WithCaptureResponse(ctx, &rawResponse)
+	printNetworkInterfaces(ctxWithResp, creds, "faa080af-c1d8-40ad-9cce-e1a450ca5b57", "judytest01")
 }
 
 func printNetworkInterfaces(ctx context.Context, creds azcore.TokenCredential, subscriptionID string, resourceGroup string) {
-	factory, err := armnetwork.NewClientFactory(subscriptionID, creds, &arm.ClientOptions{})
+	factory, err := armnetwork.NewClientFactory(subscriptionID, creds, &arm.ClientOptions{
+		ClientOptions: policy.ClientOptions{
+			Logging: policy.LogOptions{
+				// include HTTP body for log
+				IncludeBody: true,
+			},
+		},
+	})
+
+	// azlog.SetListener(func(event azlog.Event, s string) {
+	// 	fmt.Println(s)
+	// })
+
+	// // include only azidentity credential logs
+	// azlog.SetEvents(azidentity.EventAuthentication)
+
 	if err != nil {
 		printErr(err)
 	}
 
 	client := factory.NewInterfacesClient()
+
 	pager := client.NewListPager(resourceGroup, &armnetwork.InterfacesClientListOptions{})
 	for pager.More() {
 		page, err := pager.NextPage(ctx)

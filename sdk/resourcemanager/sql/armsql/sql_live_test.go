@@ -21,10 +21,10 @@ import (
 // C:\Users\v-liujudy\go\pkg\mod\github.com\!azure\azure-sdk-for-go\sdk\resourcemanager
 const (
 	SubscriptionID    = "faa080af-c1d8-40ad-9cce-e1a450ca5b57"
-	ResourceGroupName = "judytest04"
+	ResourceGroupName = "judytest04-record"
 	ResourceLocation  = "eastus2"
-	SqlServerName     = "judy-sql-test001"
-	DatabaseName      = "test01"
+	SqlServerName     = "judy-sql-record"
+	DatabaseName      = "test-record"
 	PathToPackage     = "sdk/resourcemanager/sql/armsql/testdata"
 )
 
