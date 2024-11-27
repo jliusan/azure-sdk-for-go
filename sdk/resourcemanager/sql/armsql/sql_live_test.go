@@ -89,6 +89,12 @@ func TestSqlAccessTestSuite(t *testing.T) {
 	suite.Run(t, new(SqlAccessTestSuite))
 }
 
+func (testsuite *SqlAccessTestSuite) TearDownSuite() {
+	_, err := testutil.DeleteResourceGroup(testsuite.ctx, testsuite.subscriptionId, testsuite.cred, testsuite.options, testsuite.resourceGroupName)
+	testsuite.Require().NoError(err)
+	testutil.StopRecording(testsuite.T())
+}
+
 func TestCreateOrUpdateGroupOfSubscriptionId(t *testing.T) {
 	// subsriptionId := os.Getenv("AZURE_SUBSCRIPTION_ID")
 	subsriptionId := "faa080af-c1d8-40ad-9cce-e1a450ca5b57"
