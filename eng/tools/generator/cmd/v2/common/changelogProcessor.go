@@ -169,7 +169,8 @@ func GetExportsFromTag(sdkRepo repo.SDKRepository, packagePath, tag string) (*ex
 	// get exports
 	result, err := exports.Get(packagePath)
 	if err != nil {
-		return nil, err
+		log.Printf("exports.Get error(%s)", err.Error())
+		return nil, nil
 	}
 
 	// checkout back to head branch
