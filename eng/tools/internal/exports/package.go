@@ -8,6 +8,7 @@ import (
 	"go/ast"
 	"go/parser"
 	"go/token"
+	"log"
 	"os"
 	"strings"
 )
@@ -72,7 +73,7 @@ func LoadPackage(dir string) (pkg Package, err error) {
 		p := packages[pn]
 		// trim any non-exported nodes
 		if exp := ast.PackageExports(p); !exp {
-			err = fmt.Errorf("package '%s' doesn't contain any exports", pn)
+			log.Printf("package '%s' doesn't contain any exports", pn)
 			return
 		}
 		pkg.p = p
