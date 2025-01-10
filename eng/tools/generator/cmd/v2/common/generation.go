@@ -450,7 +450,8 @@ func (ctx *GenerateContext) GenerateForTypeSpec(generateParam *GenerateParam, pa
 
 		tags, err := GetAllVersionTags(packageModuleRelativePath)
 		if err != nil {
-			return nil, err
+			log.Printf("GetAllVersionTags error(%s)", err.Error())
+			return nil, nil
 		}
 
 		if len(tags) == 0 {
