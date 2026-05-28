@@ -1,4 +1,6 @@
 {
-  "apiVersion": "2024-11-01",
-  "emitterVersion": "0.8.3"
+  "apiVersions": {
+    "Microsoft.IoTOperations": "2026-03-01"
+  },
+  "emitterVersion": "0.10.6"
 }

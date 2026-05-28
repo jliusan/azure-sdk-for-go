@@ -11,7 +11,7 @@ import (
 	"log"
 )
 
-// Generated from example definition: 2024-09-01/ScriptPackages_Get.json
+// Generated from example definition: 2025-09-01/ScriptPackages_Get.json
 func ExampleScriptPackagesClient_Get() {
 	cred, err := azidentity.NewDefaultAzureCredential(nil)
 	if err != nil {
@@ -30,7 +30,7 @@ func ExampleScriptPackagesClient_Get() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armavs.ScriptPackagesClientGetResponse{
-	// 	ScriptPackage: &armavs.ScriptPackage{
+	// 	ScriptPackage: armavs.ScriptPackage{
 	// 		Name: to.Ptr("Microsoft.AVS.Management@3.0.48"),
 	// 		ID: to.Ptr("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/group1/providers/Microsoft.AVS/privateClouds/cloud1/scriptPackages/Microsoft.AVS.Management@3.0.48"),
 	// 		Properties: &armavs.ScriptPackageProperties{
@@ -44,7 +44,7 @@ func ExampleScriptPackagesClient_Get() {
 	// }
 }
 
-// Generated from example definition: 2024-09-01/ScriptPackages_List.json
+// Generated from example definition: 2025-09-01/ScriptPackages_List.json
 func ExampleScriptPackagesClient_NewListPager() {
 	cred, err := azidentity.NewDefaultAzureCredential(nil)
 	if err != nil {

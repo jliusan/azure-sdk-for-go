@@ -1,5 +1,16 @@
 # Release History
 
+## 2.0.2 (2026-03-17)
+### Other Changes
+
+- Upgrade to service API version 2026-02-01
+
+## 2.0.1 (2025-11-05)
+### Breaking Changes
+
+- Field `RetryAfter` of struct `SecretsClientCreateOrUpdateResponse` has been removed
+
+
 ## 2.0.0 (2025-10-20)
 ### Breaking Changes
 

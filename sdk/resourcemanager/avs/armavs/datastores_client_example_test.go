@@ -12,7 +12,7 @@ import (
 	"log"
 )
 
-// Generated from example definition: 2024-09-01/Datastores_CreateOrUpdate.json
+// Generated from example definition: 2025-09-01/Datastores_CreateOrUpdate.json
 func ExampleDatastoresClient_BeginCreateOrUpdate() {
 	cred, err := azidentity.NewDefaultAzureCredential(nil)
 	if err != nil {
@@ -35,13 +35,13 @@ func ExampleDatastoresClient_BeginCreateOrUpdate() {
 	}
 	res, err := poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 	// You could use response here. We use blank identifier for just demo purposes.
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armavs.DatastoresClientCreateOrUpdateResponse{
-	// 	Datastore: &armavs.Datastore{
+	// 	Datastore: armavs.Datastore{
 	// 		ID: to.Ptr("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/group1/providers/Microsoft.AVS/privateClouds/cloud1/clusters/cluster1/datastores/datastore1"),
 	// 		Name: to.Ptr("datastore1"),
 	// 		Properties: &armavs.DatastoreProperties{
@@ -56,7 +56,7 @@ func ExampleDatastoresClient_BeginCreateOrUpdate() {
 	// }
 }
 
-// Generated from example definition: 2024-09-01/Datastores_Delete.json
+// Generated from example definition: 2025-09-01/Datastores_Delete.json
 func ExampleDatastoresClient_BeginDelete() {
 	cred, err := azidentity.NewDefaultAzureCredential(nil)
 	if err != nil {
@@ -73,7 +73,7 @@ func ExampleDatastoresClient_BeginDelete() {
 	}
 	res, err := poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 	// You could use response here. We use blank identifier for just demo purposes.
 	_ = res
@@ -82,7 +82,7 @@ func ExampleDatastoresClient_BeginDelete() {
 	// }
 }
 
-// Generated from example definition: 2024-09-01/Datastores_Get.json
+// Generated from example definition: 2025-09-01/Datastores_Get.json
 func ExampleDatastoresClient_Get() {
 	cred, err := azidentity.NewDefaultAzureCredential(nil)
 	if err != nil {
@@ -101,7 +101,7 @@ func ExampleDatastoresClient_Get() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armavs.DatastoresClientGetResponse{
-	// 	Datastore: &armavs.Datastore{
+	// 	Datastore: armavs.Datastore{
 	// 		ID: to.Ptr("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/group1/providers/Microsoft.AVS/privateClouds/cloud1/clusters/cluster1/datastores/datastore1"),
 	// 		Name: to.Ptr("datastore1"),
 	// 		Properties: &armavs.DatastoreProperties{
@@ -116,7 +116,7 @@ func ExampleDatastoresClient_Get() {
 	// }
 }
 
-// Generated from example definition: 2024-09-01/Datastores_List.json
+// Generated from example definition: 2025-09-01/Datastores_List.json
 func ExampleDatastoresClient_NewListPager() {
 	cred, err := azidentity.NewDefaultAzureCredential(nil)
 	if err != nil {

@@ -12,7 +12,7 @@ import (
 	"log"
 )
 
-// Generated from example definition: 2024-09-01/CloudLinks_CreateOrUpdate.json
+// Generated from example definition: 2025-09-01/CloudLinks_CreateOrUpdate.json
 func ExampleCloudLinksClient_BeginCreateOrUpdate() {
 	cred, err := azidentity.NewDefaultAzureCredential(nil)
 	if err != nil {
@@ -33,13 +33,13 @@ func ExampleCloudLinksClient_BeginCreateOrUpdate() {
 	}
 	res, err := poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 	// You could use response here. We use blank identifier for just demo purposes.
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armavs.CloudLinksClientCreateOrUpdateResponse{
-	// 	CloudLink: &armavs.CloudLink{
+	// 	CloudLink: armavs.CloudLink{
 	// 		ID: to.Ptr("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/group1/providers/Microsoft.AVS/privateClouds/cloud1/cloudLinks/cloudLink1"),
 	// 		Name: to.Ptr("cloudLink1"),
 	// 		Properties: &armavs.CloudLinkProperties{
@@ -51,7 +51,7 @@ func ExampleCloudLinksClient_BeginCreateOrUpdate() {
 	// }
 }
 
-// Generated from example definition: 2024-09-01/CloudLinks_Delete.json
+// Generated from example definition: 2025-09-01/CloudLinks_Delete.json
 func ExampleCloudLinksClient_BeginDelete() {
 	cred, err := azidentity.NewDefaultAzureCredential(nil)
 	if err != nil {
@@ -68,7 +68,7 @@ func ExampleCloudLinksClient_BeginDelete() {
 	}
 	res, err := poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 	// You could use response here. We use blank identifier for just demo purposes.
 	_ = res
@@ -77,7 +77,7 @@ func ExampleCloudLinksClient_BeginDelete() {
 	// }
 }
 
-// Generated from example definition: 2024-09-01/CloudLinks_Get.json
+// Generated from example definition: 2025-09-01/CloudLinks_Get.json
 func ExampleCloudLinksClient_Get() {
 	cred, err := azidentity.NewDefaultAzureCredential(nil)
 	if err != nil {
@@ -96,7 +96,7 @@ func ExampleCloudLinksClient_Get() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armavs.CloudLinksClientGetResponse{
-	// 	CloudLink: &armavs.CloudLink{
+	// 	CloudLink: armavs.CloudLink{
 	// 		ID: to.Ptr("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/group1/providers/Microsoft.AVS/privateClouds/cloud1/cloudLinks/cloudLink1"),
 	// 		Name: to.Ptr("cloudLink1"),
 	// 		Properties: &armavs.CloudLinkProperties{
@@ -108,7 +108,7 @@ func ExampleCloudLinksClient_Get() {
 	// }
 }
 
-// Generated from example definition: 2024-09-01/CloudLinks_List.json
+// Generated from example definition: 2025-09-01/CloudLinks_List.json
 func ExampleCloudLinksClient_NewListPager() {
 	cred, err := azidentity.NewDefaultAzureCredential(nil)
 	if err != nil {

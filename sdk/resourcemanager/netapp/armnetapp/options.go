@@ -202,6 +202,20 @@ type BucketsClientBeginDeleteOptions struct {
 	ResumeToken string
 }
 
+// BucketsClientBeginGenerateAkvCredentialsOptions contains the optional parameters for the BucketsClient.BeginGenerateAkvCredentials
+// method.
+type BucketsClientBeginGenerateAkvCredentialsOptions struct {
+	// Resumes the long-running operation from the provided token.
+	ResumeToken string
+}
+
+// BucketsClientBeginRefreshCertificateOptions contains the optional parameters for the BucketsClient.BeginRefreshCertificate
+// method.
+type BucketsClientBeginRefreshCertificateOptions struct {
+	// Resumes the long-running operation from the provided token.
+	ResumeToken string
+}
+
 // BucketsClientBeginUpdateOptions contains the optional parameters for the BucketsClient.BeginUpdate method.
 type BucketsClientBeginUpdateOptions struct {
 	// Resumes the long-running operation from the provided token.
@@ -220,6 +234,52 @@ type BucketsClientGetOptions struct {
 
 // BucketsClientListOptions contains the optional parameters for the BucketsClient.NewListPager method.
 type BucketsClientListOptions struct {
+	// placeholder for future optional parameters
+}
+
+// CachesClientBeginCreateOrUpdateOptions contains the optional parameters for the CachesClient.BeginCreateOrUpdate method.
+type CachesClientBeginCreateOrUpdateOptions struct {
+	// Resumes the long-running operation from the provided token.
+	ResumeToken string
+}
+
+// CachesClientBeginDeleteOptions contains the optional parameters for the CachesClient.BeginDelete method.
+type CachesClientBeginDeleteOptions struct {
+	// Resumes the long-running operation from the provided token.
+	ResumeToken string
+}
+
+// CachesClientBeginPoolChangeOptions contains the optional parameters for the CachesClient.BeginPoolChange method.
+type CachesClientBeginPoolChangeOptions struct {
+	// Resumes the long-running operation from the provided token.
+	ResumeToken string
+}
+
+// CachesClientBeginResetSmbPasswordOptions contains the optional parameters for the CachesClient.BeginResetSmbPassword method.
+type CachesClientBeginResetSmbPasswordOptions struct {
+	// Resumes the long-running operation from the provided token.
+	ResumeToken string
+}
+
+// CachesClientBeginUpdateOptions contains the optional parameters for the CachesClient.BeginUpdate method.
+type CachesClientBeginUpdateOptions struct {
+	// Resumes the long-running operation from the provided token.
+	ResumeToken string
+}
+
+// CachesClientGetOptions contains the optional parameters for the CachesClient.Get method.
+type CachesClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// CachesClientListOptions contains the optional parameters for the CachesClient.NewListPager method.
+type CachesClientListOptions struct {
+	// placeholder for future optional parameters
+}
+
+// CachesClientListPeeringPassphrasesOptions contains the optional parameters for the CachesClient.ListPeeringPassphrases
+// method.
+type CachesClientListPeeringPassphrasesOptions struct {
 	// placeholder for future optional parameters
 }
 
@@ -253,6 +313,23 @@ type PoolsClientGetOptions struct {
 
 // PoolsClientListOptions contains the optional parameters for the PoolsClient.NewListPager method.
 type PoolsClientListOptions struct {
+	// placeholder for future optional parameters
+}
+
+// RansomwareReportsClientBeginClearSuspectsOptions contains the optional parameters for the RansomwareReportsClient.BeginClearSuspects
+// method.
+type RansomwareReportsClientBeginClearSuspectsOptions struct {
+	// Resumes the long-running operation from the provided token.
+	ResumeToken string
+}
+
+// RansomwareReportsClientGetOptions contains the optional parameters for the RansomwareReportsClient.Get method.
+type RansomwareReportsClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// RansomwareReportsClientListOptions contains the optional parameters for the RansomwareReportsClient.NewListPager method.
+type RansomwareReportsClientListOptions struct {
 	// placeholder for future optional parameters
 }
 
@@ -564,6 +641,9 @@ type VolumesClientBeginListGetGroupIDListForLdapUserOptions struct {
 
 // VolumesClientBeginListQuotaReportOptions contains the optional parameters for the VolumesClient.BeginListQuotaReport method.
 type VolumesClientBeginListQuotaReportOptions struct {
+	// The content of the action request
+	Body *QuotaReportFilterRequest
+
 	// Resumes the long-running operation from the provided token.
 	ResumeToken string
 }
@@ -670,7 +750,8 @@ type VolumesClientListOptions struct {
 
 // VolumesClientListReplicationsOptions contains the optional parameters for the VolumesClient.NewListReplicationsPager method.
 type VolumesClientListReplicationsOptions struct {
-	// placeholder for future optional parameters
+	// The content of the action request
+	Body *ListReplicationsRequest
 }
 
 // VolumesClientReplicationStatusOptions contains the optional parameters for the VolumesClient.ReplicationStatus method.

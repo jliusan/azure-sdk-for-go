@@ -265,7 +265,7 @@ type Operation struct {
 	Origin *Origin
 }
 
-// OperationDisplay - Localized display information for and operation.
+// OperationDisplay - Localized display information for an operation.
 type OperationDisplay struct {
 	// READ-ONLY; The short, localized friendly description of the operation; suitable for tool tips and detailed views.
 	Description *string
@@ -447,6 +447,9 @@ type Properties struct {
 	// The high availability properties of the mongo cluster.
 	HighAvailability *HighAvailabilityProperties
 
+	// The network bypass mode for the cluster. Setting to 'AzureCosmosDB' allows Azure Cosmos DB service to bypass network restrictions.
+	NetworkBypassMode *NetworkBypassMode
+
 	// List of private endpoint connections.
 	PreviewFeatures []*PreviewFeature
 
@@ -616,6 +619,9 @@ type UpdateProperties struct {
 
 	// The high availability properties of the mongo cluster.
 	HighAvailability *HighAvailabilityProperties
+
+	// The network bypass mode for the cluster. Setting to 'AzureCosmosDB' allows Azure Cosmos DB service to bypass network restrictions.
+	NetworkBypassMode *NetworkBypassMode
 
 	// List of private endpoint connections.
 	PreviewFeatures []*PreviewFeature

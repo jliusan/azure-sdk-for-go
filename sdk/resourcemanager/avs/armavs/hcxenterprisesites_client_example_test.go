@@ -11,7 +11,7 @@ import (
 	"log"
 )
 
-// Generated from example definition: 2024-09-01/HcxEnterpriseSites_CreateOrUpdate.json
+// Generated from example definition: 2025-09-01/HcxEnterpriseSites_CreateOrUpdate.json
 func ExampleHcxEnterpriseSitesClient_CreateOrUpdate() {
 	cred, err := azidentity.NewDefaultAzureCredential(nil)
 	if err != nil {
@@ -30,7 +30,7 @@ func ExampleHcxEnterpriseSitesClient_CreateOrUpdate() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armavs.HcxEnterpriseSitesClientCreateOrUpdateResponse{
-	// 	HcxEnterpriseSite: &armavs.HcxEnterpriseSite{
+	// 	HcxEnterpriseSite: armavs.HcxEnterpriseSite{
 	// 		ID: to.Ptr("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/group1/providers/Microsoft.AVS/privateClouds/cloud1/hcxEnterpriseSites/site1"),
 	// 		Name: to.Ptr("site1"),
 	// 		Properties: &armavs.HcxEnterpriseSiteProperties{
@@ -42,7 +42,7 @@ func ExampleHcxEnterpriseSitesClient_CreateOrUpdate() {
 	// }
 }
 
-// Generated from example definition: 2024-09-01/HcxEnterpriseSites_Delete.json
+// Generated from example definition: 2025-09-01/HcxEnterpriseSites_Delete.json
 func ExampleHcxEnterpriseSitesClient_Delete() {
 	cred, err := azidentity.NewDefaultAzureCredential(nil)
 	if err != nil {
@@ -64,7 +64,7 @@ func ExampleHcxEnterpriseSitesClient_Delete() {
 	// }
 }
 
-// Generated from example definition: 2024-09-01/HcxEnterpriseSites_Get.json
+// Generated from example definition: 2025-09-01/HcxEnterpriseSites_Get.json
 func ExampleHcxEnterpriseSitesClient_Get() {
 	cred, err := azidentity.NewDefaultAzureCredential(nil)
 	if err != nil {
@@ -83,7 +83,7 @@ func ExampleHcxEnterpriseSitesClient_Get() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armavs.HcxEnterpriseSitesClientGetResponse{
-	// 	HcxEnterpriseSite: &armavs.HcxEnterpriseSite{
+	// 	HcxEnterpriseSite: armavs.HcxEnterpriseSite{
 	// 		ID: to.Ptr("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/group1/providers/Microsoft.AVS/privateClouds/cloud1/hcxEnterpriseSites/site1"),
 	// 		Name: to.Ptr("site1"),
 	// 		Properties: &armavs.HcxEnterpriseSiteProperties{
@@ -95,7 +95,7 @@ func ExampleHcxEnterpriseSitesClient_Get() {
 	// }
 }
 
-// Generated from example definition: 2024-09-01/HcxEnterpriseSites_List.json
+// Generated from example definition: 2025-09-01/HcxEnterpriseSites_List.json
 func ExampleHcxEnterpriseSitesClient_NewListPager() {
 	cred, err := azidentity.NewDefaultAzureCredential(nil)
 	if err != nil {

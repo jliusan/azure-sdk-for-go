@@ -1,6 +1,3 @@
-//go:build go1.18
-// +build go1.18
-
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
@@ -58,6 +55,13 @@ type ListRevisionsOptions struct {
 
 // ListSettingsOptions contains the optional parameters for the NewListSettingsPager method.
 type ListSettingsOptions struct {
+	// The match conditions used when making the request.
+	// Conditions are applied to pages one by one in the order specified.
+	MatchConditions []azcore.MatchConditions
+}
+
+// CheckSettingsOptions contains the optional parameters for the NewCheckSettingsPager method.
+type CheckSettingsOptions struct {
 	// The match conditions used when making the request.
 	// Conditions are applied to pages one by one in the order specified.
 	MatchConditions []azcore.MatchConditions

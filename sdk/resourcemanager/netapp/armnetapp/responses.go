@@ -185,6 +185,11 @@ type BucketsClientDeleteResponse struct {
 	// placeholder for future response values
 }
 
+// BucketsClientGenerateAkvCredentialsResponse contains the response from method BucketsClient.BeginGenerateAkvCredentials.
+type BucketsClientGenerateAkvCredentialsResponse struct {
+	// placeholder for future response values
+}
+
 // BucketsClientGenerateCredentialsResponse contains the response from method BucketsClient.GenerateCredentials.
 type BucketsClientGenerateCredentialsResponse struct {
 	// Bucket Access Key, Secret Key, and Expiry date and time of the key pair
@@ -203,10 +208,60 @@ type BucketsClientListResponse struct {
 	BucketList
 }
 
+// BucketsClientRefreshCertificateResponse contains the response from method BucketsClient.BeginRefreshCertificate.
+type BucketsClientRefreshCertificateResponse struct {
+	// placeholder for future response values
+}
+
 // BucketsClientUpdateResponse contains the response from method BucketsClient.BeginUpdate.
 type BucketsClientUpdateResponse struct {
 	// Bucket resource
 	Bucket
+}
+
+// CachesClientCreateOrUpdateResponse contains the response from method CachesClient.BeginCreateOrUpdate.
+type CachesClientCreateOrUpdateResponse struct {
+	// Cache resource
+	Cache
+}
+
+// CachesClientDeleteResponse contains the response from method CachesClient.BeginDelete.
+type CachesClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// CachesClientGetResponse contains the response from method CachesClient.Get.
+type CachesClientGetResponse struct {
+	// Cache resource
+	Cache
+}
+
+// CachesClientListPeeringPassphrasesResponse contains the response from method CachesClient.ListPeeringPassphrases.
+type CachesClientListPeeringPassphrasesResponse struct {
+	// The response containing peering passphrases and commands for cluster and vserver peering.
+	PeeringPassphrases
+}
+
+// CachesClientListResponse contains the response from method CachesClient.NewListPager.
+type CachesClientListResponse struct {
+	// List of Cache resources
+	CacheList
+}
+
+// CachesClientPoolChangeResponse contains the response from method CachesClient.BeginPoolChange.
+type CachesClientPoolChangeResponse struct {
+	// placeholder for future response values
+}
+
+// CachesClientResetSmbPasswordResponse contains the response from method CachesClient.BeginResetSmbPassword.
+type CachesClientResetSmbPasswordResponse struct {
+	// placeholder for future response values
+}
+
+// CachesClientUpdateResponse contains the response from method CachesClient.BeginUpdate.
+type CachesClientUpdateResponse struct {
+	// Cache resource
+	Cache
 }
 
 // OperationsClientListResponse contains the response from method OperationsClient.NewListPager.
@@ -242,6 +297,28 @@ type PoolsClientListResponse struct {
 type PoolsClientUpdateResponse struct {
 	// Capacity pool resource
 	CapacityPool
+}
+
+// RansomwareReportsClientClearSuspectsResponse contains the response from method RansomwareReportsClient.BeginClearSuspects.
+type RansomwareReportsClientClearSuspectsResponse struct {
+	// placeholder for future response values
+}
+
+// RansomwareReportsClientGetResponse contains the response from method RansomwareReportsClient.Get.
+type RansomwareReportsClientGetResponse struct {
+	// Advanced Ransomware Protection (ARP) report
+	// Get details of the specified Advanced Ransomware Protection report (ARP).
+	// ARP reports are created with a list of suspected files when it detects any combination of high data entropy, abnormal volume
+	// activity with data encryption, and unusual file extensions.
+	// ARP creates snapshots named Anti_ransomware_backup when it detects a potential ransomware threat. You can use one of these
+	// ARP snapshots or another snapshot of your volume to restore data.
+	RansomwareReport
+}
+
+// RansomwareReportsClientListResponse contains the response from method RansomwareReportsClient.NewListPager.
+type RansomwareReportsClientListResponse struct {
+	// List of Advanced Ransomware Protection (ARP) reports
+	RansomwareReportsList
 }
 
 // ResourceClientCheckFilePathAvailabilityResponse contains the response from method ResourceClient.CheckFilePathAvailability.
@@ -283,25 +360,25 @@ type ResourceClientUpdateNetworkSiblingSetResponse struct {
 // ResourceQuotaLimitsAccountClientGetResponse contains the response from method ResourceQuotaLimitsAccountClient.Get.
 type ResourceQuotaLimitsAccountClientGetResponse struct {
 	// Information regarding Quota Item.
-	QuotaItem
+	SubscriptionQuotaItem
 }
 
 // ResourceQuotaLimitsAccountClientListResponse contains the response from method ResourceQuotaLimitsAccountClient.NewListPager.
 type ResourceQuotaLimitsAccountClientListResponse struct {
 	// List of Quota Items
-	QuotaItemList
+	SubscriptionQuotaItemList
 }
 
 // ResourceQuotaLimitsClientGetResponse contains the response from method ResourceQuotaLimitsClient.Get.
 type ResourceQuotaLimitsClientGetResponse struct {
 	// Information regarding Quota Item.
-	QuotaItem
+	SubscriptionQuotaItem
 }
 
 // ResourceQuotaLimitsClientListResponse contains the response from method ResourceQuotaLimitsClient.NewListPager.
 type ResourceQuotaLimitsClientListResponse struct {
 	// List of Quota Items
-	QuotaItemList
+	SubscriptionQuotaItemList
 }
 
 // ResourceRegionInfosClientGetResponse contains the response from method ResourceRegionInfosClient.Get.
@@ -545,8 +622,8 @@ type VolumesClientListGetGroupIDListForLdapUserResponse struct {
 
 // VolumesClientListQuotaReportResponse contains the response from method VolumesClient.BeginListQuotaReport.
 type VolumesClientListQuotaReportResponse struct {
-	// Quota Report for volume
-	ListQuotaReportResponse
+	// * Result of ListQuotaReportResponse
+	ListQuotaReportResult
 }
 
 // VolumesClientListReplicationsResponse contains the response from method VolumesClient.NewListReplicationsPager.

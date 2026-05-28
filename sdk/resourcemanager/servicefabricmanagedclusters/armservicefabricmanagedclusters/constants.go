@@ -248,54 +248,34 @@ func PossibleFailureActionValues() []FailureAction {
 	}
 }
 
-// FaultKind - The kind of fault simulation.
-type FaultKind string
+// HealthFilter - Enum for filtering health events.
+type HealthFilter string
 
 const (
-	// FaultKindZone - Simulates an availability zone down.
-	FaultKindZone FaultKind = "Zone"
+	// HealthFilterAll - Filter that matches input with any health state.
+	HealthFilterAll HealthFilter = "All"
+	// HealthFilterDefault - Default value. Matches any health state.
+	HealthFilterDefault HealthFilter = "Default"
+	// HealthFilterError - Filter for health state Error.
+	HealthFilterError HealthFilter = "Error"
+	// HealthFilterNone - Filter that doesn't match any health state. Used to return no results on a given collection of health
+	// entities.
+	HealthFilterNone HealthFilter = "None"
+	// HealthFilterOk - Filter for health state Ok.
+	HealthFilterOk HealthFilter = "Ok"
+	// HealthFilterWarning - Filter for health state Warning.
+	HealthFilterWarning HealthFilter = "Warning"
 )
 
-// PossibleFaultKindValues returns the possible values for the FaultKind const type.
-func PossibleFaultKindValues() []FaultKind {
-	return []FaultKind{
-		FaultKindZone,
-	}
-}
-
-// FaultSimulationStatus - Fault simulation status.
-type FaultSimulationStatus string
-
-const (
-	// FaultSimulationStatusActive - Indicates the fault simulation is active. The simulation will have this status after the
-	// start operation has completed successfully.
-	FaultSimulationStatusActive FaultSimulationStatus = "Active"
-	// FaultSimulationStatusDone - Indicates the fault simulation is done. The simulation will have this status after the stop
-	// operation has completed successfully.
-	FaultSimulationStatusDone FaultSimulationStatus = "Done"
-	// FaultSimulationStatusStartFailed - Indicates the fault simulation has failed on start. The simulation will have this status
-	// after the start operation fails.
-	FaultSimulationStatusStartFailed FaultSimulationStatus = "StartFailed"
-	// FaultSimulationStatusStarting - Indicates the fault simulation is starting. The simulation will have this status while
-	// the start operation is in progress.
-	FaultSimulationStatusStarting FaultSimulationStatus = "Starting"
-	// FaultSimulationStatusStopFailed - Indicates the fault simulation has failed on stop. The simulation will have this status
-	// after the stop operation fails.
-	FaultSimulationStatusStopFailed FaultSimulationStatus = "StopFailed"
-	// FaultSimulationStatusStopping - Indicates the fault simulation is stopping. The simulation will have this status while
-	// the stop operation is in progress.
-	FaultSimulationStatusStopping FaultSimulationStatus = "Stopping"
-)
-
-// PossibleFaultSimulationStatusValues returns the possible values for the FaultSimulationStatus const type.
-func PossibleFaultSimulationStatusValues() []FaultSimulationStatus {
-	return []FaultSimulationStatus{
-		FaultSimulationStatusActive,
-		FaultSimulationStatusDone,
-		FaultSimulationStatusStartFailed,
-		FaultSimulationStatusStarting,
-		FaultSimulationStatusStopFailed,
-		FaultSimulationStatusStopping,
+// PossibleHealthFilterValues returns the possible values for the HealthFilter const type.
+func PossibleHealthFilterValues() []HealthFilter {
+	return []HealthFilter{
+		HealthFilterAll,
+		HealthFilterDefault,
+		HealthFilterError,
+		HealthFilterNone,
+		HealthFilterOk,
+		HealthFilterWarning,
 	}
 }
 
@@ -649,6 +629,21 @@ func PossiblePublicIPAddressVersionValues() []PublicIPAddressVersion {
 	}
 }
 
+// RestartKind - The kind of restart to perform.
+type RestartKind string
+
+const (
+	// RestartKindSimultaneous - Restart all listed replicas at the same time.
+	RestartKindSimultaneous RestartKind = "Simultaneous"
+)
+
+// PossibleRestartKindValues returns the possible values for the RestartKind const type.
+func PossibleRestartKindValues() []RestartKind {
+	return []RestartKind{
+		RestartKindSimultaneous,
+	}
+}
+
 // RollingUpgradeMode - The mode used to monitor health during a rolling upgrade. The values are Monitored, and UnmonitoredAuto.
 type RollingUpgradeMode string
 
@@ -942,36 +937,6 @@ func PossibleServiceScalingTriggerKindValues() []ServiceScalingTriggerKind {
 	return []ServiceScalingTriggerKind{
 		ServiceScalingTriggerKindAveragePartitionLoadTrigger,
 		ServiceScalingTriggerKindAverageServiceLoadTrigger,
-	}
-}
-
-// SfmcOperationStatus - Sfmc operation status.
-type SfmcOperationStatus string
-
-const (
-	// SfmcOperationStatusAborted - Operation aborted.
-	SfmcOperationStatusAborted SfmcOperationStatus = "Aborted"
-	// SfmcOperationStatusCanceled - Operation canceled.
-	SfmcOperationStatusCanceled SfmcOperationStatus = "Canceled"
-	// SfmcOperationStatusCreated - Operation created.
-	SfmcOperationStatusCreated SfmcOperationStatus = "Created"
-	// SfmcOperationStatusFailed - Operation failed.
-	SfmcOperationStatusFailed SfmcOperationStatus = "Failed"
-	// SfmcOperationStatusStarted - Operation started.
-	SfmcOperationStatusStarted SfmcOperationStatus = "Started"
-	// SfmcOperationStatusSucceeded - Operation succeeded.
-	SfmcOperationStatusSucceeded SfmcOperationStatus = "Succeeded"
-)
-
-// PossibleSfmcOperationStatusValues returns the possible values for the SfmcOperationStatus const type.
-func PossibleSfmcOperationStatusValues() []SfmcOperationStatus {
-	return []SfmcOperationStatus{
-		SfmcOperationStatusAborted,
-		SfmcOperationStatusCanceled,
-		SfmcOperationStatusCreated,
-		SfmcOperationStatusFailed,
-		SfmcOperationStatusStarted,
-		SfmcOperationStatusSucceeded,
 	}
 }
 

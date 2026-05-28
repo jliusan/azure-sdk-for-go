@@ -12,7 +12,7 @@ import (
 	"log"
 )
 
-// Generated from example definition: 2024-09-01/PureStoragePolicies_CreateOrUpdate.json
+// Generated from example definition: 2025-09-01/PureStoragePolicies_CreateOrUpdate.json
 func ExamplePureStoragePoliciesClient_BeginCreateOrUpdate() {
 	cred, err := azidentity.NewDefaultAzureCredential(nil)
 	if err != nil {
@@ -34,13 +34,13 @@ func ExamplePureStoragePoliciesClient_BeginCreateOrUpdate() {
 	}
 	res, err := poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 	// You could use response here. We use blank identifier for just demo purposes.
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armavs.PureStoragePoliciesClientCreateOrUpdateResponse{
-	// 	PureStoragePolicy: &armavs.PureStoragePolicy{
+	// 	PureStoragePolicy: armavs.PureStoragePolicy{
 	// 		ID: to.Ptr("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/group1/providers/Microsoft.AVS/privateClouds/cloud1/pureStoragePolicies/storagePolicy1"),
 	// 		Name: to.Ptr("storagePolicy1"),
 	// 		Properties: &armavs.PureStoragePolicyProperties{
@@ -53,7 +53,7 @@ func ExamplePureStoragePoliciesClient_BeginCreateOrUpdate() {
 	// }
 }
 
-// Generated from example definition: 2024-09-01/PureStoragePolicies_Delete.json
+// Generated from example definition: 2025-09-01/PureStoragePolicies_Delete.json
 func ExamplePureStoragePoliciesClient_BeginDelete() {
 	cred, err := azidentity.NewDefaultAzureCredential(nil)
 	if err != nil {
@@ -70,11 +70,11 @@ func ExamplePureStoragePoliciesClient_BeginDelete() {
 	}
 	_, err = poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 }
 
-// Generated from example definition: 2024-09-01/PureStoragePolicies_Get.json
+// Generated from example definition: 2025-09-01/PureStoragePolicies_Get.json
 func ExamplePureStoragePoliciesClient_Get() {
 	cred, err := azidentity.NewDefaultAzureCredential(nil)
 	if err != nil {
@@ -93,7 +93,7 @@ func ExamplePureStoragePoliciesClient_Get() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armavs.PureStoragePoliciesClientGetResponse{
-	// 	PureStoragePolicy: &armavs.PureStoragePolicy{
+	// 	PureStoragePolicy: armavs.PureStoragePolicy{
 	// 		ID: to.Ptr("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/group1/providers/Microsoft.AVS/privateClouds/cloud1/pureStoragePolicies/storagePolicy1"),
 	// 		Name: to.Ptr("storagePolicy1"),
 	// 		Properties: &armavs.PureStoragePolicyProperties{
@@ -106,7 +106,7 @@ func ExamplePureStoragePoliciesClient_Get() {
 	// }
 }
 
-// Generated from example definition: 2024-09-01/PureStoragePolicies_List.json
+// Generated from example definition: 2025-09-01/PureStoragePolicies_List.json
 func ExamplePureStoragePoliciesClient_NewListPager() {
 	cred, err := azidentity.NewDefaultAzureCredential(nil)
 	if err != nil {

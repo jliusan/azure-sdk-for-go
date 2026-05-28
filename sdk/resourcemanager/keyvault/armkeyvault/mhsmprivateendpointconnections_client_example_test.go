@@ -12,7 +12,7 @@ import (
 	"log"
 )
 
-// Generated from example definition: 2025-05-01/ManagedHsm_deletePrivateEndpointConnection.json
+// Generated from example definition: 2026-02-01/ManagedHsm_deletePrivateEndpointConnection.json
 func ExampleMHSMPrivateEndpointConnectionsClient_BeginDelete() {
 	cred, err := azidentity.NewDefaultAzureCredential(nil)
 	if err != nil {
@@ -46,7 +46,7 @@ func ExampleMHSMPrivateEndpointConnectionsClient_BeginDelete() {
 	// }
 }
 
-// Generated from example definition: 2025-05-01/ManagedHsm_getPrivateEndpointConnection.json
+// Generated from example definition: 2026-02-01/ManagedHsm_getPrivateEndpointConnection.json
 func ExampleMHSMPrivateEndpointConnectionsClient_Get() {
 	cred, err := azidentity.NewDefaultAzureCredential(nil)
 	if err != nil {
@@ -68,7 +68,7 @@ func ExampleMHSMPrivateEndpointConnectionsClient_Get() {
 	// 	MHSMPrivateEndpointConnection: &armkeyvault.MHSMPrivateEndpointConnection{
 	// 		Name: to.Ptr("sample-pec"),
 	// 		Type: to.Ptr("Microsoft.KeyVault/managedhsms/privateEndpointConnections"),
-	// 		Etag: &azcore.ETag(""),
+	// 		Etag: to.Ptr(azcore.ETag("")),
 	// 		ID: to.Ptr("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/sample-group/providers/Microsoft.KeyVault/managedhsms/sample-mhsm/privateEndpointConnections/sample-pec"),
 	// 		Properties: &armkeyvault.MHSMPrivateEndpointConnectionProperties{
 	// 			PrivateEndpoint: &armkeyvault.MHSMPrivateEndpoint{
@@ -85,7 +85,7 @@ func ExampleMHSMPrivateEndpointConnectionsClient_Get() {
 	// }
 }
 
-// Generated from example definition: 2025-05-01/ManagedHsm_ListPrivateEndpointConnectionsByResource.json
+// Generated from example definition: 2026-02-01/ManagedHsm_ListPrivateEndpointConnectionsByResource.json
 func ExampleMHSMPrivateEndpointConnectionsClient_NewListByResourcePager() {
 	cred, err := azidentity.NewDefaultAzureCredential(nil)
 	if err != nil {
@@ -113,7 +113,7 @@ func ExampleMHSMPrivateEndpointConnectionsClient_NewListByResourcePager() {
 		// 			{
 		// 				Name: to.Ptr("sample-pec1"),
 		// 				Type: to.Ptr("Microsoft.KeyVault/managedhsms/privateEndpointConnections"),
-		// 				Etag: &azcore.ETag(""),
+		// 				Etag: to.Ptr(azcore.ETag("")),
 		// 				ID: to.Ptr("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/sample-group/providers/Microsoft.KeyVault/managedhsms/sample-mhsm/privateEndpointConnections/sample-pec1"),
 		// 				Properties: &armkeyvault.MHSMPrivateEndpointConnectionProperties{
 		// 					PrivateEndpoint: &armkeyvault.MHSMPrivateEndpoint{
@@ -130,7 +130,7 @@ func ExampleMHSMPrivateEndpointConnectionsClient_NewListByResourcePager() {
 		// 			{
 		// 				Name: to.Ptr("sample-pec2"),
 		// 				Type: to.Ptr("Microsoft.KeyVault/managedhsms/privateEndpointConnections"),
-		// 				Etag: &azcore.ETag(""),
+		// 				Etag: to.Ptr(azcore.ETag("")),
 		// 				ID: to.Ptr("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/sample-group/providers/Microsoft.KeyVault/managedhsms/sample-mhsm/privateEndpointConnections/sample-pec2"),
 		// 				Properties: &armkeyvault.MHSMPrivateEndpointConnectionProperties{
 		// 					PrivateEndpoint: &armkeyvault.MHSMPrivateEndpoint{
@@ -150,7 +150,7 @@ func ExampleMHSMPrivateEndpointConnectionsClient_NewListByResourcePager() {
 	}
 }
 
-// Generated from example definition: 2025-05-01/ManagedHsm_putPrivateEndpointConnection.json
+// Generated from example definition: 2026-02-01/ManagedHsm_putPrivateEndpointConnection.json
 func ExampleMHSMPrivateEndpointConnectionsClient_Put() {
 	cred, err := azidentity.NewDefaultAzureCredential(nil)
 	if err != nil {

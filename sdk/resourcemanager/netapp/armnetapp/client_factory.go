@@ -96,6 +96,14 @@ func (c *ClientFactory) NewBucketsClient() *BucketsClient {
 	}
 }
 
+// NewCachesClient creates a new instance of CachesClient.
+func (c *ClientFactory) NewCachesClient() *CachesClient {
+	return &CachesClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
 // NewOperationsClient creates a new instance of OperationsClient.
 func (c *ClientFactory) NewOperationsClient() *OperationsClient {
 	return &OperationsClient{
@@ -106,6 +114,14 @@ func (c *ClientFactory) NewOperationsClient() *OperationsClient {
 // NewPoolsClient creates a new instance of PoolsClient.
 func (c *ClientFactory) NewPoolsClient() *PoolsClient {
 	return &PoolsClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
+// NewRansomwareReportsClient creates a new instance of RansomwareReportsClient.
+func (c *ClientFactory) NewRansomwareReportsClient() *RansomwareReportsClient {
+	return &RansomwareReportsClient{
 		subscriptionID: c.subscriptionID,
 		internal:       c.internal,
 	}

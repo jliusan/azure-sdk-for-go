@@ -12,7 +12,7 @@ import (
 	"log"
 )
 
-// Generated from example definition: 2024-09-01/ScriptExecutions_CreateOrUpdate.json
+// Generated from example definition: 2025-09-01/ScriptExecutions_CreateOrUpdate.json
 func ExampleScriptExecutionsClient_BeginCreateOrUpdate() {
 	cred, err := azidentity.NewDefaultAzureCredential(nil)
 	if err != nil {
@@ -54,13 +54,13 @@ func ExampleScriptExecutionsClient_BeginCreateOrUpdate() {
 	}
 	res, err := poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 	// You could use response here. We use blank identifier for just demo purposes.
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armavs.ScriptExecutionsClientCreateOrUpdateResponse{
-	// 	ScriptExecution: &armavs.ScriptExecution{
+	// 	ScriptExecution: armavs.ScriptExecution{
 	// 		ID: to.Ptr("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/group1/providers/Microsoft.AVS/privateClouds/cloud1/scriptExecutions/addSsoServer"),
 	// 		Name: to.Ptr("addSsoServer"),
 	// 		Properties: &armavs.ScriptExecutionProperties{
@@ -91,7 +91,7 @@ func ExampleScriptExecutionsClient_BeginCreateOrUpdate() {
 	// }
 }
 
-// Generated from example definition: 2024-09-01/ScriptExecutions_Delete.json
+// Generated from example definition: 2025-09-01/ScriptExecutions_Delete.json
 func ExampleScriptExecutionsClient_BeginDelete() {
 	cred, err := azidentity.NewDefaultAzureCredential(nil)
 	if err != nil {
@@ -108,7 +108,7 @@ func ExampleScriptExecutionsClient_BeginDelete() {
 	}
 	res, err := poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 	// You could use response here. We use blank identifier for just demo purposes.
 	_ = res
@@ -117,7 +117,7 @@ func ExampleScriptExecutionsClient_BeginDelete() {
 	// }
 }
 
-// Generated from example definition: 2024-09-01/ScriptExecutions_Get.json
+// Generated from example definition: 2025-09-01/ScriptExecutions_Get.json
 func ExampleScriptExecutionsClient_Get() {
 	cred, err := azidentity.NewDefaultAzureCredential(nil)
 	if err != nil {
@@ -136,7 +136,7 @@ func ExampleScriptExecutionsClient_Get() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armavs.ScriptExecutionsClientGetResponse{
-	// 	ScriptExecution: &armavs.ScriptExecution{
+	// 	ScriptExecution: armavs.ScriptExecution{
 	// 		ID: to.Ptr("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/group1/providers/Microsoft.AVS/privateClouds/cloud1/scriptExecutions/addSsoServer"),
 	// 		Name: to.Ptr("addSsoServer"),
 	// 		Properties: &armavs.ScriptExecutionProperties{
@@ -166,7 +166,7 @@ func ExampleScriptExecutionsClient_Get() {
 	// }
 }
 
-// Generated from example definition: 2024-09-01/ScriptExecutions_GetExecutionLogs.json
+// Generated from example definition: 2025-09-01/ScriptExecutions_GetExecutionLogs.json
 func ExampleScriptExecutionsClient_GetExecutionLogs() {
 	cred, err := azidentity.NewDefaultAzureCredential(nil)
 	if err != nil {
@@ -191,7 +191,7 @@ func ExampleScriptExecutionsClient_GetExecutionLogs() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armavs.ScriptExecutionsClientGetExecutionLogsResponse{
-	// 	ScriptExecution: &armavs.ScriptExecution{
+	// 	ScriptExecution: armavs.ScriptExecution{
 	// 		ID: to.Ptr("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/group1/providers/Microsoft.AVS/privateClouds/cloud1/scriptExecutions/addSsoServer"),
 	// 		Name: to.Ptr("addSsoServer"),
 	// 		Properties: &armavs.ScriptExecutionProperties{
@@ -217,7 +217,7 @@ func ExampleScriptExecutionsClient_GetExecutionLogs() {
 	// }
 }
 
-// Generated from example definition: 2024-09-01/ScriptExecutions_List.json
+// Generated from example definition: 2025-09-01/ScriptExecutions_List.json
 func ExampleScriptExecutionsClient_NewListPager() {
 	cred, err := azidentity.NewDefaultAzureCredential(nil)
 	if err != nil {

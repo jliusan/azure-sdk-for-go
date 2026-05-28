@@ -45,6 +45,27 @@ type AdditionalNetworkInterfaceConfiguration struct {
 	EnableAcceleratedNetworking *bool
 }
 
+// ApplicationFetchHealthRequest - Parameters for fetching the health of an application.
+type ApplicationFetchHealthRequest struct {
+	// Allows filtering of the deployed applications health state objects returned in the result of application health query based
+	// on their health state.
+	DeployedApplicationsHealthStateFilter *HealthFilter
+
+	// Allows filtering of the health events returned in the response based on health state.
+	EventsHealthStateFilter *HealthFilter
+
+	// Indicates whether the health statistics should be returned as part of the query result. False by default. The statistics
+	// show the number of children entities in health state Ok, Warning, and Error.
+	ExcludeHealthStatistics *bool
+
+	// Allows filtering of the services health state objects returned in the result of services health query based on their health
+	// state.
+	ServicesHealthStateFilter *HealthFilter
+
+	// Request timeout for the health query in seconds. The default value is 60 seconds.
+	Timeout *int64
+}
+
 // ApplicationHealthPolicy - Defines a health policy used to evaluate the health of an application or one of its children
 // entities.
 type ApplicationHealthPolicy struct {
@@ -225,8 +246,17 @@ type ApplicationTypeVersionsCleanupPolicy struct {
 
 // ApplicationUpdateParameters - Application update request.
 type ApplicationUpdateParameters struct {
+	// Application update parameters properties.
+	Properties *ApplicationUpdateParametersProperties
+
 	// Application update parameters
 	Tags map[string]*string
+}
+
+// ApplicationUpdateParametersProperties - Properties for application update request.
+type ApplicationUpdateParametersProperties struct {
+	// List of application parameters with overridden values from their default values specified in the application manifest.
+	Parameters map[string]*string
 }
 
 // ApplicationUpgradePolicy - Describes the policy for a monitored application upgrade.
@@ -483,81 +513,6 @@ type ErrorModelError struct {
 
 	// The error message.
 	Message *string
-}
-
-// FaultSimulation - Fault simulation object with status.
-type FaultSimulation struct {
-	// Fault simulation details
-	Details *FaultSimulationDetails
-
-	// The end time of the fault simulation.
-	EndTime *time.Time
-
-	// unique identifier for the fault simulation.
-	SimulationID *string
-
-	// The start time of the fault simulation.
-	StartTime *time.Time
-
-	// Fault simulation status
-	Status *FaultSimulationStatus
-}
-
-// FaultSimulationConstraints - Constraints for Fault Simulation action.
-type FaultSimulationConstraints struct {
-	// The absolute expiration timestamp (UTC) after which this fault simulation should be stopped if it's still active.
-	ExpirationTime *time.Time
-}
-
-// FaultSimulationContent - Parameters for Fault Simulation action.
-type FaultSimulationContent struct {
-	// REQUIRED; The kind of fault to be simulated.
-	FaultKind *FaultKind
-
-	// Constraints for Fault Simulation action.
-	Constraints *FaultSimulationConstraints
-
-	// Force the action to go through without any check on the cluster.
-	Force *bool
-}
-
-// GetFaultSimulationContent implements the FaultSimulationContentClassification interface for type FaultSimulationContent.
-func (f *FaultSimulationContent) GetFaultSimulationContent() *FaultSimulationContent { return f }
-
-// FaultSimulationContentWrapper - Fault Simulation Request for Start action.
-type FaultSimulationContentWrapper struct {
-	// REQUIRED; Parameters for Fault Simulation start action.
-	Parameters FaultSimulationContentClassification
-}
-
-// FaultSimulationDetails - Details for Fault Simulation.
-type FaultSimulationDetails struct {
-	// unique identifier for the cluster resource.
-	ClusterID *string
-
-	// List of node type simulations associated with the cluster fault simulation.
-	NodeTypeFaultSimulation []*NodeTypeFaultSimulation
-
-	// unique identifier for the operation associated with the fault simulation.
-	OperationID *string
-
-	// Fault simulation parameters.
-	Parameters FaultSimulationContentClassification
-}
-
-// FaultSimulationIDContent - Parameters for Fault Simulation id.
-type FaultSimulationIDContent struct {
-	// REQUIRED; unique identifier for the fault simulation.
-	SimulationID *string
-}
-
-// FaultSimulationListResult - Fault simulation list results
-type FaultSimulationListResult struct {
-	// REQUIRED; The FaultSimulation items on this page
-	Value []*FaultSimulation
-
-	// The link to the next page of items
-	NextLink *string
 }
 
 // FrontendConfiguration - Describes the frontend configurations for the node type.
@@ -842,6 +797,10 @@ type ManagedClusterProperties struct {
 	// Service endpoints for subnets in the cluster.
 	ServiceEndpoints []*ServiceEndpoint
 
+	// Determines whether to skip the assignment of the managed network security group (SF-NSG) to the cluster subnet when using
+	// a bring-your-own virtual network (BYOVNET) configuration. The default value is false.
+	SkipManagedNsgAssignment *bool
+
 	// If specified, the node types for the cluster are created in this subnet instead of the default VNet. The **networkSecurityRules**
 	// specified for the cluster are also applied to this subnet. This setting cannot be changed once the cluster is created.
 	SubnetID *string
@@ -1084,21 +1043,6 @@ type NodeTypeAvailableSKU struct {
 	SKU *NodeTypeSupportedSKU
 }
 
-// NodeTypeFaultSimulation - Node type fault simulation object with status.
-type NodeTypeFaultSimulation struct {
-	// Node type name.
-	NodeTypeName *string
-
-	// Current or latest asynchronous operation identifier on the node type.
-	OperationID *string
-
-	// Current or latest asynchronous operation status on the node type
-	OperationStatus *SfmcOperationStatus
-
-	// Fault simulation status
-	Status *FaultSimulationStatus
-}
-
 // NodeTypeListResult - The response of a NodeType list operation.
 type NodeTypeListResult struct {
 	// REQUIRED; The NodeType items on this page
@@ -1186,6 +1130,10 @@ type NodeTypeProperties struct {
 
 	// Specifies whether the node type should be overprovisioned. It is only allowed for stateless node types.
 	EnableOverProvisioning *bool
+
+	// Specifies whether the node type should use a resilient ephemeral OS disk when using a supported SKU size. A resilient ephemeral
+	// OS disk provides improved reliability for ephemeral OS disks by enabling full caching.
+	EnableResilientEphemeralOsDisk *bool
 
 	// The range of ephemeral ports that nodes in this node type should be configured with.
 	EphemeralPorts *EndpointRangeDescription
@@ -1436,6 +1384,51 @@ type ResourceAzStatus struct {
 
 	// READ-ONLY; VM Size id.
 	ResourceType *string
+}
+
+// RestartDeployedCodePackageRequest - Parameters for restarting a deployed code package.
+type RestartDeployedCodePackageRequest struct {
+	// REQUIRED; The instance ID for currently running entry point. For a code package setup entry point (if specified) runs first
+	// and after it finishes main entry point is started. Each time entry point executable is run, its instance ID will change.
+	// If 0 is passed in as the code package instance ID, the API will restart the code package with whatever instance ID it is
+	// currently running. If an instance ID other than 0 is passed in, the API will restart the code package only if the current
+	// Instance ID matches the passed in instance ID. Note, passing in the exact instance ID (not 0) in the API is safer, because
+	// if ensures at most one restart of the code package.
+	CodePackageInstanceID *string
+
+	// REQUIRED; The name of the code package as specified in the service manifest.
+	CodePackageName *string
+
+	// REQUIRED; The name of the node where the code package needs to be restarted. Use '*' to restart on all nodes where the
+	// code package is running.
+	NodeName *string
+
+	// REQUIRED; The name of the service manifest as specified in the code package.
+	ServiceManifestName *string
+
+	// The activation id of a deployed service package. If ServicePackageActivationMode specified at the time of creating the
+	// service is 'SharedProcess' (or if it is not specified, in which case it defaults to 'SharedProcess'), then value of ServicePackageActivationId
+	// is always an empty string.
+	ServicePackageActivationID *string
+}
+
+// RestartReplicaRequest - Request to restart a replica.
+type RestartReplicaRequest struct {
+	// REQUIRED; The ID of the partition.
+	PartitionID *string
+
+	// REQUIRED; The IDs of the replicas to be restarted.
+	ReplicaIDs []*int64
+
+	// REQUIRED; The kind of restart to perform.
+	RestartKind *RestartKind
+
+	// If true, the restart operation will be forced. Use this option with care, as it may cause data loss.
+	ForceRestart *bool
+
+	// The server timeout for performing the operation in seconds. This timeout specifies the time duration that the client is
+	// willing to wait for the requested operation to complete. The default value for this parameter is 60 seconds.
+	Timeout *int64
 }
 
 // RollingUpgradeMonitoringPolicy - The policy used for monitoring the application upgrade
@@ -2304,29 +2297,4 @@ type VmssDataDisk struct {
 	// REQUIRED; Specifies the logical unit number of the data disk. This value is used to identify data disks within the VM and
 	// therefore must be unique for each data disk attached to a VM. Lun 0 is reserved for the service fabric data disk.
 	Lun *int32
-}
-
-// ZoneFaultSimulationContent - Parameters for Zone Fault Simulation action.
-type ZoneFaultSimulationContent struct {
-	// CONSTANT; The kind of fault simulation.
-	// Field has constant value FaultKindZone, any specified value is ignored.
-	FaultKind *FaultKind
-
-	// Constraints for Fault Simulation action.
-	Constraints *FaultSimulationConstraints
-
-	// Force the action to go through without any check on the cluster.
-	Force *bool
-
-	// Indicates the zones of the fault simulation.
-	Zones []*string
-}
-
-// GetFaultSimulationContent implements the FaultSimulationContentClassification interface for type ZoneFaultSimulationContent.
-func (z *ZoneFaultSimulationContent) GetFaultSimulationContent() *FaultSimulationContent {
-	return &FaultSimulationContent{
-		Constraints: z.Constraints,
-		FaultKind:   z.FaultKind,
-		Force:       z.Force,
-	}
 }

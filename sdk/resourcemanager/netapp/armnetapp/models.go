@@ -92,9 +92,6 @@ type AccountProperties struct {
 	// Encryption settings
 	Encryption *AccountEncryption
 
-	// LDAP Configuration for the account.
-	LdapConfiguration *LdapConfiguration
-
 	// Domain for NFSv4 user ID mapping. This property will be set for all NetApp accounts in the subscription and region and
 	// only affect non ldap NFSv4 volumes.
 	NfsV4IDDomain *string
@@ -188,6 +185,22 @@ type ActiveDirectory struct {
 type AuthorizeRequest struct {
 	// Resource id of the remote volume
 	RemoteVolumeResourceID *string
+}
+
+// AzureKeyVaultDetails - Specifies the Azure Key Vault settings. These are used when
+// a) retrieving the bucket server certificate, and
+// b) storing the bucket credentials
+// Notes:
+// 1. If a bucket certificate was previously provided directly using the certificateObject property, it is possible to subsequently
+// use the Azure Key Vault for certificate management by using these 'akvDetails' properties. However, once Azure Key Vault
+// is configured, it is no longer possible to provide the certificate directly via the certificateObject property.
+// 2. These properties are mutually exclusive with the server.certificateObject property.
+type AzureKeyVaultDetails struct {
+	// Specifies the Azure Key Vault settings for retrieving the bucket server certificate.
+	CertificateAkvDetails *CertificateAkvDetails
+
+	// Specifies the Azure Key Vault settings for storing the bucket credentials.
+	CredentialsAkvDetails *CredentialsAkvDetails
 }
 
 // Backup under a Backup Vault
@@ -536,13 +549,20 @@ type BucketPatch struct {
 
 // BucketPatchProperties - Bucket resource properties for a Patch operation
 type BucketPatchProperties struct {
+	// Specifies the Azure Key Vault settings. These are used when
+	// a) retrieving the bucket server certificate, and
+	// b) storing the bucket credentials
+	// Notes:
+	// 1. If a bucket certificate was previously provided directly using the certificateObject property, it is possible to subsequently
+	// use the Azure Key Vault for certificate management by using these 'akvDetails' properties. However, once Azure Key Vault
+	// is configured, it is no longer possible to provide the certificate directly via the certificateObject property.
+	// 2. These properties are mutually exclusive with the server.certificateObject property.
+	AkvDetails *AzureKeyVaultDetails
+
 	// File System user having access to volume data. For Unix, this is the user's uid and gid. For Windows, this is the user's
 	// username. Note that the Unix and Windows user details are mutually exclusive, meaning one or other must be supplied, but
 	// not both.
 	FileSystemUser *FileSystemUser
-
-	// The volume path mounted inside the bucket.
-	Path *string
 
 	// Access permissions for the bucket. Either ReadOnly or ReadWrite.
 	Permissions *BucketPatchPermissions
@@ -556,6 +576,16 @@ type BucketPatchProperties struct {
 
 // BucketProperties - Bucket resource properties
 type BucketProperties struct {
+	// Specifies the Azure Key Vault settings. These are used when
+	// a) retrieving the bucket server certificate, and
+	// b) storing the bucket credentials
+	// Notes:
+	// 1. If a bucket certificate was previously provided directly using the certificateObject property, it is possible to subsequently
+	// use the Azure Key Vault for certificate management by using these 'akvDetails' properties. However, once Azure Key Vault
+	// is configured, it is no longer possible to provide the certificate directly via the certificateObject property.
+	// 2. These properties are mutually exclusive with the server.certificateObject property.
+	AkvDetails *AzureKeyVaultDetails
+
 	// File System user having access to volume data. For Unix, this is the user's uid and gid. For Windows, this is the user's
 	// username. Note that the Unix and Windows user details are mutually exclusive, meaning one or other must be supplied, but
 	// not both.
@@ -584,22 +614,34 @@ type BucketProperties struct {
 
 // BucketServerPatchProperties - Properties of the server managing the lifecycle of volume buckets
 type BucketServerPatchProperties struct {
-	// A base64-encoded PEM file, which includes both the bucket server's certificate and private key. It is used to authenticate
-	// the user and allows access to volume data in a read-only manner.
+	// The base64-encoded contents of a PEM file, which includes both the bucket server's certificate and private key. It is generated
+	// by the end user and allows the user to access volume data in a read-only manner.
+	// Note: This is only used when Azure Key Vault is not configured. This property is mutually exclusive with the Azure Key
+	// Vault 'akv' properties.
 	CertificateObject *string
 
 	// The host part of the bucket URL, resolving to the bucket IP address and allowed by the server certificate.
 	Fqdn *string
+
+	// Action to take when there is a certificate conflict.
+	// Possible values include: 'Update', 'Fail'
+	OnCertificateConflictAction *OnCertificateConflictAction
 }
 
 // BucketServerProperties - Properties of the server managing the lifecycle of volume buckets
 type BucketServerProperties struct {
-	// A base64-encoded PEM file, which includes both the bucket server's certificate and private key. It is used to authenticate
-	// the user and allows access to volume data in a read-only manner.
+	// The base64-encoded contents of a PEM file, which includes both the bucket server's certificate and private key. It is generated
+	// by the end user and allows the user to access volume data in a read-only manner.
+	// Note: This is only used when Azure Key Vault is not configured. This property is mutually exclusive with the Azure Key
+	// Vault 'akv' properties.
 	CertificateObject *string
 
 	// The host part of the bucket URL, resolving to the bucket IP address and allowed by the server certificate.
 	Fqdn *string
+
+	// Action to take when there is a certificate conflict.
+	// Possible values include: 'Update', 'Fail'
+	OnCertificateConflictAction *OnCertificateConflictAction
 
 	// READ-ONLY; Certificate Common Name taken from the certificate installed on the bucket server
 	CertificateCommonName *string
@@ -609,6 +651,184 @@ type BucketServerProperties struct {
 
 	// READ-ONLY; The bucket server's IPv4 address
 	IPAddress *string
+}
+
+// Cache resource
+type Cache struct {
+	// REQUIRED; The geo-location where the resource lives
+	Location *string
+
+	// REQUIRED; Cache properties
+	Properties *CacheProperties
+
+	// Resource tags.
+	Tags map[string]*string
+
+	// The availability zones.
+	Zones []*string
+
+	// READ-ONLY; "If etag is provided in the response body, it may also be provided as a header per the normal etag convention.
+	// Entity tags are used for comparing two or more entities from the same requested resource. HTTP/1.1 uses entity tags in
+	// the etag (section 14.19), If-Match (section 14.24), If-None-Match (section 14.26), and If-Range (section 14.27) header
+	// fields.")
+	Etag *string
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// CacheList - List of Cache resources
+type CacheList struct {
+	// REQUIRED; The Cache items on this page
+	Value []*Cache
+
+	// The link to the next page of items
+	NextLink *string
+}
+
+// CacheMountTargetProperties - Contains all the information needed to mount a cache
+type CacheMountTargetProperties struct {
+	// READ-ONLY; The mount target's IPv4 address, used to mount the cache.
+	IPAddress *string
+
+	// READ-ONLY; UUID v4 used to identify the MountTarget
+	MountTargetID *string
+
+	// READ-ONLY; The SMB server's Fully Qualified Domain Name, FQDN
+	SmbServerFqdn *string
+}
+
+// CacheProperties - Cache resource properties
+type CacheProperties struct {
+	// REQUIRED; The Azure Resource URI for a delegated cache subnet that will be used to allocate data IPs.
+	CacheSubnetResourceID *string
+
+	// REQUIRED; Source of key used to encrypt data in the cache. Applicable if NetApp account has encryption.keySource = 'Microsoft.KeyVault'.
+	// Possible values (case-insensitive) are: 'Microsoft.NetApp, Microsoft.KeyVault'
+	EncryptionKeySource *EncryptionKeySource
+
+	// REQUIRED; The file path of the Cache.
+	FilePath *string
+
+	// REQUIRED; Origin cluster information
+	OriginClusterInformation *OriginClusterInformation
+
+	// REQUIRED; The Azure Resource URI for a delegated subnet that will be used for ANF Intercluster Interface IP addresses.
+	PeeringSubnetResourceID *string
+
+	// REQUIRED; Maximum storage quota allowed for a file system in bytes. Valid values are in the range 50GiB to 1PiB. Values
+	// expressed in bytes as multiples of 1GiB.
+	Size *int64
+
+	// Flag indicating whether a CIFS change notification is enabled for the cache.
+	CifsChangeNotifications *CifsChangeNotifyState
+
+	// Set of export policy rules
+	ExportPolicy *CachePropertiesExportPolicy
+
+	// Flag indicating whether the global file lock is enabled for the cache.
+	GlobalFileLocking *GlobalFileLockingState
+
+	// Describe if a cache is Kerberos enabled.
+	Kerberos *KerberosState
+
+	// The resource ID of private endpoint for KeyVault. It must reside in the same VNET as the volume. Only applicable if encryptionKeySource
+	// = 'Microsoft.KeyVault'.
+	KeyVaultPrivateEndpointResourceID *string
+
+	// Specifies whether LDAP is enabled or not for flexcache volume.
+	Ldap *LdapState
+
+	// Specifies the type of LDAP server for flexcache volume.
+	LdapServerType *LdapServerType
+
+	// Set of supported protocol types, which include NFSv3, NFSv4 and SMB protocol
+	ProtocolTypes []*ProtocolTypes
+
+	// SMB information for the cache
+	SmbSettings *SmbSettings
+
+	// Maximum throughput in MiB/s that can be achieved by this cache volume and this will be accepted as input only for manual
+	// qosType cache
+	ThroughputMibps *float32
+
+	// Flag indicating whether writeback is enabled for the cache.
+	WriteBack *EnableWriteBackState
+
+	// READ-ONLY; Actual throughput in MiB/s for auto qosType volumes calculated based on size and serviceLevel
+	ActualThroughputMibps *float32
+
+	// READ-ONLY; Azure NetApp Files Cache lifecycle management
+	CacheState *CacheLifeCycleState
+
+	// READ-ONLY; Specifies if the cache is encryption or not.
+	Encryption *EncryptionState
+
+	// READ-ONLY; Language supported for volume.
+	Language *VolumeLanguage
+
+	// READ-ONLY; Maximum number of files allowed.
+	MaximumNumberOfFiles *int64
+
+	// READ-ONLY; List of mount targets that can be used to mount this cache
+	MountTargets []*CacheMountTargetProperties
+
+	// READ-ONLY; Azure lifecycle management
+	ProvisioningState *CacheProvisioningState
+}
+
+// CachePropertiesExportPolicy - Set of export policy rules
+type CachePropertiesExportPolicy struct {
+	// Export policy rule
+	Rules []*ExportPolicyRule
+}
+
+// CacheUpdate - The type used for update operations of the Cache.
+type CacheUpdate struct {
+	// The resource-specific properties for this resource.
+	Properties *CacheUpdateProperties
+
+	// Resource tags.
+	Tags map[string]*string
+}
+
+// CacheUpdateProperties - The updatable properties of the Cache.
+type CacheUpdateProperties struct {
+	// Flag indicating whether a CIFS change notification is enabled for the cache.
+	CifsChangeNotifications *CifsChangeNotifyState
+
+	// Set of export policy rules
+	ExportPolicy *CachePropertiesExportPolicy
+
+	// The resource ID of private endpoint for KeyVault. It must reside in the same VNET as the volume. Only applicable if encryptionKeySource
+	// = 'Microsoft.KeyVault'.
+	KeyVaultPrivateEndpointResourceID *string
+
+	// Set of supported protocol types, which include NFSv3, NFSv4 and SMB protocol
+	ProtocolTypes []*ProtocolTypes
+
+	// Maximum storage quota allowed for a file system in bytes. Valid values are in the range 50GiB to 1PiB. Values expressed
+	// in bytes as multiples of 1GiB.
+	Size *int64
+
+	// SMB information for the cache
+	SmbSettings *SmbSettings
+
+	// Maximum throughput in MiB/s that can be achieved by this cache volume and this will be accepted as input only for manual
+	// qosType cache
+	ThroughputMibps *float32
+
+	// Flag indicating whether writeback is enabled for the cache.
+	WriteBack *EnableWriteBackState
 }
 
 // CapacityPool - Capacity pool resource
@@ -671,6 +891,15 @@ type CapacityPoolPatch struct {
 	Type *string
 }
 
+// CertificateAkvDetails - Specifies the Azure Key Vault settings for retrieving the bucket server certificate.
+type CertificateAkvDetails struct {
+	// The base URI of the Azure Key Vault that is used when retrieving the bucket certificate.
+	CertificateKeyVaultURI *string
+
+	// The name of the bucket server certificate stored in the Azure Key Vault.
+	CertificateName *string
+}
+
 // ChangeKeyVault - Change key vault request
 type ChangeKeyVault struct {
 	// REQUIRED; The name of the key that should be used for encryption.
@@ -711,9 +940,30 @@ type CifsUser struct {
 
 // ClusterPeerCommandResponse - Information about cluster peering process
 type ClusterPeerCommandResponse struct {
-	// A command that needs to be run on the external ONTAP to accept cluster peering. Will only be present if <code>clusterPeeringStatus</code>
-	// is <code>pending</code>
-	PeerAcceptCommand *string
+	// Represents the properties of the cluster peer command response.
+	Properties *ClusterPeerCommandResponseProperties
+}
+
+// ClusterPeerCommandResponseProperties - Properties of the cluster peer command response.
+type ClusterPeerCommandResponseProperties struct {
+	// ClusterPeeringCommand to run to accept cluster peer. Will only be present if <code>clusterPeeringStatus</code> is <code>pending</code>.
+	ClusterPeeringCommand *string
+
+	// Passphrase for use with cluster peer command
+	Passphrase *string
+}
+
+// CredentialsAkvDetails - Specifies the Azure Key Vault settings for storing the bucket credentials.
+type CredentialsAkvDetails struct {
+	// The base URI of the Azure Key Vault that is used when storing the bucket credentials.
+	CredentialsKeyVaultURI *string
+
+	// The name of the secret stored in Azure Key Vault. The associated key pair has the following structure:
+	// {
+	// "access_key_id": "<REDACTED>",
+	// "secret_access_key": "<REDACTED>"
+	// }
+	SecretName *string
 }
 
 // DailySchedule - Daily Schedule properties
@@ -757,7 +1007,7 @@ type Dimension struct {
 
 // EncryptionIdentity - Identity used to authenticate with key vault.
 type EncryptionIdentity struct {
-	// ClientId of the multi-tenant AAD Application. Used to access cross-tenant keyvaults.
+	// ClientId of the multi-tenant Entra ID Application. Used to access cross-tenant keyvaults.
 	FederatedClientID *string
 
 	// The ARM resource identifier of the user assigned identity used to authenticate with key vault. Applicable if identity.type
@@ -924,24 +1174,6 @@ type KeyVaultProperties struct {
 	Status *KeyVaultStatus
 }
 
-// LdapConfiguration - LDAP configuration
-type LdapConfiguration struct {
-	// The CN host name used while generating the certificate, LDAP Over TLS requires the CN host name to create DNS host entry.
-	CertificateCNHost *string
-
-	// Name of the LDAP configuration domain
-	Domain *string
-
-	// Specifies whether or not the LDAP traffic needs to be secured via TLS.
-	LdapOverTLS *bool
-
-	// List of LDAP server IP addresses (IPv4 only) for the LDAP domain.
-	LdapServers []*string
-
-	// When LDAP over SSL/TLS is enabled, the LDAP client is required to have base64 encoded ldap servers CA certificate.
-	ServerCACertificate *string
-}
-
 // LdapSearchScopeOpt - LDAP search scope
 type LdapSearchScopeOpt struct {
 	// This specifies the group DN, which overrides the base DN for group lookups.
@@ -957,7 +1189,13 @@ type LdapSearchScopeOpt struct {
 // ListQuotaReportResponse - Quota Report for volume
 type ListQuotaReportResponse struct {
 	// List of quota reports
-	Value []*QuotaReport
+	QuotaReportRecords []*QuotaReport
+}
+
+// ListQuotaReportResult - * Result of ListQuotaReportResponse
+type ListQuotaReportResult struct {
+	// Represents the properties of the ListQuotaReport.
+	Properties *ListQuotaReportResponse
 }
 
 // ListReplications - List Replications
@@ -967,6 +1205,13 @@ type ListReplications struct {
 
 	// The link to the next page of items
 	NextLink *string
+}
+
+// ListReplicationsRequest - Body for the list replications endpoint. If supplied, the body will be used as a filter for example
+// to exclude deleted replications. If omitted, the endpoint returns all replications
+type ListReplicationsRequest struct {
+	// Exclude Replications filter. 'None' returns all replications, 'Deleted' excludes deleted replications. Default is 'None'
+	Exclude *Exclude
 }
 
 // LogSpecification - Log Definition of a single resource metric.
@@ -1108,12 +1353,12 @@ type NfsUser struct {
 	UserID *int64
 }
 
-// NicInfo - NIC information and list of volumes for which the NIC has the primary mount ip address.
+// NicInfo - NIC information and list of volumes for which the NIC has the primary mount IP Address.
 type NicInfo struct {
 	// Volume resource Ids
 	VolumeResourceIDs []*string
 
-	// READ-ONLY; ipAddress
+	// READ-ONLY; IP Address
 	IPAddress *string
 }
 
@@ -1163,10 +1408,40 @@ type OperationProperties struct {
 	ServiceSpecification *ServiceSpecification
 }
 
+// OriginClusterInformation - Stores the origin cluster information associated to a cache.
+type OriginClusterInformation struct {
+	// REQUIRED; ONTAP Intercluster LIF IP addresses. One IP address per cluster node is required
+	PeerAddresses []*string
+
+	// REQUIRED; ONTAP cluster name of external cluster hosting the origin volume. Must match the exact cluster name.
+	PeerClusterName *string
+
+	// REQUIRED; External origin volume name associated to this cache
+	PeerVolumeName *string
+
+	// REQUIRED; External Vserver (SVM) name name of the SVM hosting the origin volume
+	PeerVserverName *string
+}
+
 // PeerClusterForVolumeMigrationRequest - Source Cluster properties for a cluster peer request
 type PeerClusterForVolumeMigrationRequest struct {
 	// REQUIRED; A list of IC-LIF IPs that can be used to connect to the On-prem cluster
 	PeerIPAddresses []*string
+}
+
+// PeeringPassphrases - The response containing peering passphrases and commands for cluster and vserver peering.
+type PeeringPassphrases struct {
+	// REQUIRED; The cluster peering command.
+	ClusterPeeringCommand *string
+
+	// REQUIRED; The cluster peering passphrase.
+	ClusterPeeringPassphrase *string
+
+	// REQUIRED; The vserver peering command.
+	VserverPeeringCommand *string
+
+	// READ-ONLY; Warnings that are critical for the cluster peering and vserver peering processes.
+	CriticalWarning *string
 }
 
 // PlacementKeyValuePairs - Application specific parameters for the placement of volumes in the volume group
@@ -1256,45 +1531,6 @@ type QuotaAvailabilityRequest struct {
 	Type *CheckQuotaNameResourceTypes
 }
 
-// QuotaItem - Information regarding Quota Item.
-type QuotaItem struct {
-	// QuotaItem properties
-	Properties *QuotaItemProperties
-
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
-	ID *string
-
-	// READ-ONLY; The name of the resource
-	Name *string
-
-	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
-	SystemData *SystemData
-
-	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
-	Type *string
-}
-
-// QuotaItemList - List of Quota Items
-type QuotaItemList struct {
-	// REQUIRED; The QuotaItem items on this page
-	Value []*QuotaItem
-
-	// The link to the next page of items
-	NextLink *string
-}
-
-// QuotaItemProperties - QuotaItem Properties
-type QuotaItemProperties struct {
-	// READ-ONLY; The current quota value.
-	Current *int32
-
-	// READ-ONLY; The default quota value.
-	Default *int32
-
-	// READ-ONLY; The usage quota value.
-	Usage *int32
-}
-
 // QuotaReport - Quota report record properties
 type QuotaReport struct {
 	// Flag to indicate whether the quota is derived from default quota.
@@ -1314,7 +1550,128 @@ type QuotaReport struct {
 	QuotaTarget *string
 
 	// Type of quota
-	QuotaType *Type
+	QuotaType *QuotaType
+}
+
+// QuotaReportFilterRequest - Quota report filters. When filtering by quotaType or quotaTarget, both properties must be supplied
+// together. This constraint is enforced by the service/API at runtime, and requests violating this rule will return a validation
+// error. The usageThresholdPercentage filter is independent and can be used alone or in combination with quotaType and quotaTarget
+// to further refine results.
+type QuotaReportFilterRequest struct {
+	// UserID/GroupID/SID based on the quota target type. UserID and groupID can be found by running 'id' or 'getent' command
+	// for the user or group and SID can be found by running <wmic useraccount where name='user-name' get sid>. If provided, quotaType
+	// must also be specified. The quotaType and quotaTarget properties are optional, but when filtering by quota target, quotaType
+	// and quotaTarget must be supplied together. Service/API will return an error if only one is provided.
+	QuotaTarget *string
+
+	// Type of quota. If provided, quotaTarget must also be specified. The quotaType and quotaTarget properties are optional,
+	// but when filtering by quota type, quotaType and quotaTarget must be supplied together. Service/API will return an error
+	// if only one is provided.
+	QuotaType *QuotaType
+
+	// The usageThresholdPercentage filter takes the usage threshold percentage and returns records where the usage is greater
+	// than or equal to the input value. This is an optional property.
+	UsageThresholdPercentage *int32
+}
+
+// RansomwareProtectionPatchSettings - Advanced Ransomware Protection reports (ARP) updatable settings
+type RansomwareProtectionPatchSettings struct {
+	// The desired value of the ARP feature state available to the volume
+	DesiredRansomwareProtectionState *DesiredRansomwareProtectionState
+}
+
+// RansomwareProtectionSettings - Advanced Ransomware Protection reports (ARP) settings
+type RansomwareProtectionSettings struct {
+	// The desired value of the Advanced Ransomware Protection feature state available to the volume
+	DesiredRansomwareProtectionState *DesiredRansomwareProtectionState
+
+	// READ-ONLY; The actual state of the Advanced Ransomware Protection feature currently active on the volume
+	ActualRansomwareProtectionState *ActualRansomwareProtectionState
+}
+
+// RansomwareReport - Advanced Ransomware Protection (ARP) report
+// Get details of the specified Advanced Ransomware Protection report (ARP).
+// ARP reports are created with a list of suspected files when it detects any combination of high data entropy, abnormal volume
+// activity with data encryption, and unusual file extensions.
+// ARP creates snapshots named Anti_ransomware_backup when it detects a potential ransomware threat. You can use one of these
+// ARP snapshots or another snapshot of your volume to restore data.
+type RansomwareReport struct {
+	// Advanced Ransomware Protection reports Properties
+	Properties *RansomwareReportProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// RansomwareReportProperties - Advanced Ransomware Protection (ARP) report properties.
+// Evaluate the report to determine whether the activity is acceptable (false positive) or whether an attack seems malicious
+// using the ClearSuspects operation.
+// Advanced Ransomware Protection (ARP) creates snapshots named Anti_ransomware_backup when it detects a potential ransomware
+// threat. You can use one of the ARP snapshots or another snapshot of your volume to restore data.
+type RansomwareReportProperties struct {
+	// READ-ONLY; The number of cleared suspects identified by the ARP report
+	ClearedCount *int32
+
+	// READ-ONLY; The creation date and time of the report
+	EventTime *time.Time
+
+	// READ-ONLY; Azure lifecycle management
+	ProvisioningState *string
+
+	// READ-ONLY; The number of suspects identified by the ARP report
+	ReportedCount *int32
+
+	// READ-ONLY; Severity of the Advanced Ransomware Protection (ARP) report
+	Severity *RansomwareReportSeverity
+
+	// READ-ONLY; State of the Advanced Ransomware Protection (ARP) report
+	State *RansomwareReportState
+
+	// READ-ONLY; Suspects identified in an ARP report
+	Suspects []*RansomwareSuspects
+}
+
+// RansomwareReportsList - List of Advanced Ransomware Protection (ARP) reports
+type RansomwareReportsList struct {
+	// REQUIRED; The RansomwareReport items on this page
+	Value []*RansomwareReport
+
+	// The link to the next page of items
+	NextLink *string
+}
+
+// RansomwareSuspects - List of suspects identified in an Advanced Ransomware Protection (ARP) report
+type RansomwareSuspects struct {
+	// READ-ONLY; Suspect File extension
+	Extension *string
+
+	// READ-ONLY; The number of suspect files at the time of ARP report, this number can change as files get created and report
+	// status progresses
+	FileCount *int32
+
+	// READ-ONLY; ARP report suspect resolution
+	Resolution *RansomwareSuspectResolution
+
+	// READ-ONLY; Suspect files
+	SuspectFiles []*SuspectFile
+}
+
+// RansomwareSuspectsClearRequest - Clear suspects for Advanced Ransomware Protection (ARP) report
+type RansomwareSuspectsClearRequest struct {
+	// REQUIRED; List of file extensions resolved (PotentialThreat or FalsePositive)
+	Extensions []*string
+
+	// REQUIRED; ARP report suspect resolution
+	Resolution *RansomwareSuspectResolution
 }
 
 // ReestablishReplicationRequest - Re-establish request object supplied in the body of the operation.
@@ -1387,17 +1744,26 @@ type RemotePath struct {
 
 // Replication properties
 type Replication struct {
-	// REQUIRED; The resource ID of the remote volume.
-	RemoteVolumeResourceID *string
-
 	// Indicates whether the local volume is the source or destination for the Volume Replication
 	EndpointType *EndpointType
 
 	// The remote region for the other end of the Volume Replication.
 	RemoteVolumeRegion *string
 
+	// The resource ID of the remote volume.
+	RemoteVolumeResourceID *string
+
 	// Schedule
 	ReplicationSchedule *ReplicationSchedule
+
+	// READ-ONLY; The status of the replication
+	MirrorState *ReplicationMirrorState
+
+	// READ-ONLY; Replication creation time
+	ReplicationCreationTime *time.Time
+
+	// READ-ONLY; Replication deletion time
+	ReplicationDeletionTime *time.Time
 
 	// READ-ONLY; UUID v4 used to identify the replication.
 	ReplicationID *string
@@ -1499,6 +1865,18 @@ type ServiceSpecification struct {
 
 	// Metric specifications of operation.
 	MetricSpecifications []*MetricSpecification
+}
+
+// SmbSettings - SMB settings for the cache
+type SmbSettings struct {
+	// Enables access-based enumeration share property for SMB Shares. Only applicable for SMB/DualProtocol volume
+	SmbAccessBasedEnumeration *SmbAccessBasedEnumeration
+
+	// Enables encryption for in-flight smb3 data. Only applicable for SMB/DualProtocol cache.
+	SmbEncryption *SmbEncryptionState
+
+	// Enables non-browsable property for SMB Shares. Only applicable for SMB/DualProtocol volume
+	SmbNonBrowsable *SmbNonBrowsable
 }
 
 // Snapshot of a Volume
@@ -1646,6 +2024,45 @@ type SnapshotsList struct {
 	NextLink *string
 }
 
+// SubscriptionQuotaItem - Information regarding Quota Item.
+type SubscriptionQuotaItem struct {
+	// QuotaItem properties
+	Properties *SubscriptionQuotaItemProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// SubscriptionQuotaItemList - List of Quota Items
+type SubscriptionQuotaItemList struct {
+	// REQUIRED; The QuotaItem items on this page
+	Value []*SubscriptionQuotaItem
+
+	// The link to the next page of items
+	NextLink *string
+}
+
+// SubscriptionQuotaItemProperties - QuotaItem Properties
+type SubscriptionQuotaItemProperties struct {
+	// READ-ONLY; The current quota value.
+	Current *int32
+
+	// READ-ONLY; The default quota value.
+	Default *int32
+
+	// READ-ONLY; The usage quota value.
+	Usage *int32
+}
+
 // SubvolumeInfo - Subvolume Information properties
 type SubvolumeInfo struct {
 	// Subvolume Properties
@@ -1751,8 +2168,23 @@ type SubvolumesList struct {
 	NextLink *string
 }
 
+// SuspectFile - Suspect file information
+type SuspectFile struct {
+	// READ-ONLY; The creation date and time of the file
+	FileTimestamp *time.Time
+
+	// READ-ONLY; Suspect filename
+	SuspectFileName *string
+}
+
 // SvmPeerCommandResponse - Information about svm peering process
 type SvmPeerCommandResponse struct {
+	// Represents the properties of the SVM peer command response.
+	Properties *SvmPeerCommandResponseProperties
+}
+
+// SvmPeerCommandResponseProperties - Properties of the SVM peer command response.
+type SvmPeerCommandResponseProperties struct {
 	// A command that needs to be run on the external ONTAP to accept svm peering. Will only be present if <code>svmPeeringStatus</code>
 	// is <code>pending</code>
 	SvmPeeringCommand *string
@@ -2116,6 +2548,9 @@ type VolumePatchPropertiesDataProtection struct {
 	// Backup Properties
 	Backup *VolumeBackupProperties
 
+	// Advanced Ransomware Protection updatable settings
+	RansomwareProtection *RansomwareProtectionPatchSettings
+
 	// Snapshot properties.
 	Snapshot *VolumeSnapshotProperties
 }
@@ -2208,14 +2643,8 @@ type VolumeProperties struct {
 	// = 'Microsoft.KeyVault'.
 	KeyVaultPrivateEndpointResourceID *string
 
-	// Language supported for volume.
-	Language *VolumeLanguage
-
 	// Specifies whether LDAP is enabled or not for a given NFS volume.
 	LdapEnabled *bool
-
-	// Specifies the type of LDAP server for a given NFS volume.
-	LdapServerType *LdapServerType
 
 	// The original value of the network features type available to the volume at the time it was created.
 	NetworkFeatures *NetworkFeatures
@@ -2341,6 +2770,9 @@ type VolumePropertiesDataProtection struct {
 	// Backup Properties
 	Backup *VolumeBackupProperties
 
+	// Advanced Ransomware Protection settings
+	RansomwareProtection *RansomwareProtectionSettings
+
 	// Replication properties
 	Replication *ReplicationObject
 
@@ -2409,7 +2841,7 @@ type VolumeQuotaRulesProperties struct {
 	QuotaTarget *string
 
 	// Type of quota
-	QuotaType *Type
+	QuotaType *QuotaType
 
 	// READ-ONLY; Gets the status of the VolumeQuotaRule at the time the operation was called.
 	ProvisioningState *ProvisioningState

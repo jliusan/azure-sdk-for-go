@@ -87,6 +87,24 @@ func (a *AdlsBlobBackupDatasourceParameters) GetBlobBackupDatasourceParameters()
 	}
 }
 
+// AdlsBlobBackupDatasourceParametersForAutoProtection - Parameters to be used during configuration of backup of azure data
+// lake storage account blobs using AutoProtection settings
+type AdlsBlobBackupDatasourceParametersForAutoProtection struct {
+	// REQUIRED; AutoProtection settings
+	AutoProtectionSettings *BlobBackupRuleBasedAutoProtectionSettings
+
+	// CONSTANT; Type of the specific object - used for deserializing
+	// Field has constant value "AdlsBlobBackupDatasourceParametersForAutoProtection", any specified value is ignored.
+	ObjectType *string
+}
+
+// GetBackupDatasourceParameters implements the BackupDatasourceParametersClassification interface for type AdlsBlobBackupDatasourceParametersForAutoProtection.
+func (a *AdlsBlobBackupDatasourceParametersForAutoProtection) GetBackupDatasourceParameters() *BackupDatasourceParameters {
+	return &BackupDatasourceParameters{
+		ObjectType: a.ObjectType,
+	}
+}
+
 // AuthCredentials - Base class for different types of authentication credentials.
 type AuthCredentials struct {
 	// REQUIRED; Type of the specific object - used for deserializing
@@ -708,19 +726,36 @@ func (b *BackupPolicy) GetBaseBackupPolicy() *BaseBackupPolicy {
 
 // BackupSchedule - Schedule for backup
 type BackupSchedule struct {
-	// REQUIRED; Repeating time interval which only support the following ISO 8601 format [R/startDateTime/Duration]. Example:
-	// R/2007-03-01T13:00:00Z/P1Y2M10DT2H30M
+	// REQUIRED; Repeating time intervals that define the backup schedule.
+	// Each value must follow the format: `R/YYYY-MM-DDThh:mm:ss[.fff][Z|(+/-)hh:mm]/Duration`
+	// Only the exact formats listed below are supported. Other ISO 8601 variations are not accepted.
+	// Supported time formats:
+	// - `Thh:mm:ss.fff` (with milliseconds)
+	// - `Thh:mm:ss` (with seconds)
+	// - `Thh:mm` (hours and minutes only)
+	// A timezone indicator (`Z`, `+hh:mm`, or `-hh:mm`) may be appended to any of the above.
+	// Unsupported formats include compact notation such as `T1430`, `T143045`, or `T14.5`.
+	// Examples:
+	// - `R/2023-10-15T14:30:00Z/P1W`
+	// - `R/2023-10-15T14:30:45.123+05:30/P1D`
+	// - `R/2023-10-15T14:30Z/P1D`
 	RepeatingTimeIntervals []*string
 
-	// Time zone for a schedule. Example: Pacific Standard Time
+	// Time Zone for a schedule.
+	// Supported timezone indicators include:
+	// - 'Z' for UTC
+	// - '+00:00'
+	// - '+05:30'
+	// - '-08:00'
+	// Examples:
+	// - 2023-10-15T14:30:45Z
+	// - 2023-10-15T14:30:45.123+05:30
+	// - 2023-10-15T14:30-08:00
 	TimeZone *string
 }
 
 // BackupVault - Backup Vault
 type BackupVault struct {
-	// REQUIRED; Storage Settings
-	StorageSettings []*StorageSetting
-
 	// Feature Settings
 	FeatureSettings *FeatureSettings
 
@@ -735,6 +770,9 @@ type BackupVault struct {
 
 	// Security Settings
 	SecuritySettings *SecuritySettings
+
+	// Storage Settings
+	StorageSettings []*StorageSetting
 
 	// READ-ONLY; Security Level of Backup Vault
 	BcdrSecurityLevel *BCDRSecurityLevel
@@ -854,6 +892,36 @@ type BaseResourceProperties struct {
 // GetBaseResourceProperties implements the BaseResourcePropertiesClassification interface for type BaseResourceProperties.
 func (b *BaseResourceProperties) GetBaseResourceProperties() *BaseResourceProperties { return b }
 
+// BlobBackupAutoProtectionRule - Indicates a Blob Backup Auto Protection Rule.
+type BlobBackupAutoProtectionRule struct {
+	// REQUIRED; Exclude removes candidates (after inclusion)
+	Mode *BlobBackupRuleMode
+
+	// REQUIRED; Type of the specific object - used for deserializing
+	ObjectType *string
+
+	// REQUIRED; The string pattern to evaluate against container names. For now this accepts literal strings only (no wildcards
+	// or regex).
+	Pattern *string
+
+	// REQUIRED; Pattern type: Prefix, only pattern type supported for now.
+	Type *BlobBackupPatternType
+}
+
+// BlobBackupAutoProtectionSettings - The settings for Blob Backup Auto Protection.
+type BlobBackupAutoProtectionSettings struct {
+	// REQUIRED; Flag to enable whether auto protection.
+	Enabled *bool
+
+	// REQUIRED; Type of the specific object - used for deserializing
+	ObjectType *string
+}
+
+// GetBlobBackupAutoProtectionSettings implements the BlobBackupAutoProtectionSettingsClassification interface for type BlobBackupAutoProtectionSettings.
+func (b *BlobBackupAutoProtectionSettings) GetBlobBackupAutoProtectionSettings() *BlobBackupAutoProtectionSettings {
+	return b
+}
+
 // BlobBackupDatasourceParameters - Parameters to be used during configuration of backup of blobs
 type BlobBackupDatasourceParameters struct {
 	// REQUIRED; List of containers to be backed up during configuration of backup of blobs
@@ -874,6 +942,45 @@ func (b *BlobBackupDatasourceParameters) GetBackupDatasourceParameters() *Backup
 // GetBlobBackupDatasourceParameters implements the BlobBackupDatasourceParametersClassification interface for type BlobBackupDatasourceParameters.
 func (b *BlobBackupDatasourceParameters) GetBlobBackupDatasourceParameters() *BlobBackupDatasourceParameters {
 	return b
+}
+
+// BlobBackupDatasourceParametersForAutoProtection - Paramters to be used during configuration of backup of blobs using AutoProtection
+// settings
+type BlobBackupDatasourceParametersForAutoProtection struct {
+	// REQUIRED; AutoProtection settings
+	AutoProtectionSettings *BlobBackupRuleBasedAutoProtectionSettings
+
+	// CONSTANT; Type of the specific object - used for deserializing
+	// Field has constant value "BlobBackupDatasourceParametersForAutoProtection", any specified value is ignored.
+	ObjectType *string
+}
+
+// GetBackupDatasourceParameters implements the BackupDatasourceParametersClassification interface for type BlobBackupDatasourceParametersForAutoProtection.
+func (b *BlobBackupDatasourceParametersForAutoProtection) GetBackupDatasourceParameters() *BackupDatasourceParameters {
+	return &BackupDatasourceParameters{
+		ObjectType: b.ObjectType,
+	}
+}
+
+// BlobBackupRuleBasedAutoProtectionSettings - Parameters to be used for Blob Backup Rule Based Auto Protection settings.
+type BlobBackupRuleBasedAutoProtectionSettings struct {
+	// REQUIRED; Flag to enable whether auto protection.
+	Enabled *bool
+
+	// CONSTANT; Field has constant value "BlobBackupRuleBasedAutoProtectionSettings", any specified value is ignored.
+	ObjectType *string
+
+	// Rules are evaluated in the order provided. Inclusion adds candidates; exclusion removes candidates.
+	// If no rules are present, all containers are considered eligible when enabled = true.
+	Rules []*BlobBackupAutoProtectionRule
+}
+
+// GetBlobBackupAutoProtectionSettings implements the BlobBackupAutoProtectionSettingsClassification interface for type BlobBackupRuleBasedAutoProtectionSettings.
+func (b *BlobBackupRuleBasedAutoProtectionSettings) GetBlobBackupAutoProtectionSettings() *BlobBackupAutoProtectionSettings {
+	return &BlobBackupAutoProtectionSettings{
+		Enabled:    b.Enabled,
+		ObjectType: b.ObjectType,
+	}
 }
 
 // CheckNameAvailabilityRequest - CheckNameAvailability Request
@@ -1187,6 +1294,84 @@ type DeletedBackupInstanceResourceList struct {
 
 	// List of resources.
 	Value []*DeletedBackupInstanceResource
+}
+
+// DeletedBackupVault - Deleted Backup Vault - uses composition with BackupVault and additional deletion metadata
+type DeletedBackupVault struct {
+	// READ-ONLY; Resource Id of the original backup vault
+	OriginalBackupVaultID *string
+
+	// READ-ONLY; Resource name of the original backup vault
+	OriginalBackupVaultName *string
+
+	// READ-ONLY; Resource path of the original backup vault
+	OriginalBackupVaultResourcePath *string
+
+	// READ-ONLY; Deletion info for the tracked resource (Backup Vault)
+	ResourceDeletionInfo *ResourceDeletionInfo
+
+	// Feature Settings
+	FeatureSettings *FeatureSettings
+
+	// Monitoring Settings
+	MonitoringSettings *MonitoringSettings
+
+	// List of replicated regions for Backup Vault
+	ReplicatedRegions []*string
+
+	// ResourceGuardOperationRequests on which LAC check will be performed
+	ResourceGuardOperationRequests []*string
+
+	// Security Settings
+	SecuritySettings *SecuritySettings
+
+	// Storage Settings
+	StorageSettings []*StorageSetting
+
+	// READ-ONLY; Security Level of Backup Vault
+	BcdrSecurityLevel *BCDRSecurityLevel
+
+	// READ-ONLY; Is vault protected by resource guard
+	IsVaultProtectedByResourceGuard *bool
+
+	// READ-ONLY; Provisioning state of the BackupVault resource
+	ProvisioningState *ProvisioningState
+
+	// READ-ONLY; Resource move details for backup vault
+	ResourceMoveDetails *ResourceMoveDetails
+
+	// READ-ONLY; Resource move state for backup vault
+	ResourceMoveState *ResourceMoveState
+
+	// READ-ONLY; Secure Score of Backup Vault
+	SecureScore *SecureScoreLevel
+}
+
+// DeletedBackupVaultResource - Deleted Backup Vault Resource (available from version 2025-09-01)
+type DeletedBackupVaultResource struct {
+	// The resource-specific properties for this resource.
+	Properties *DeletedBackupVault
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// DeletedBackupVaultResourceListResult - The response of a DeletedBackupVaultResource list operation.
+type DeletedBackupVaultResourceListResult struct {
+	// REQUIRED; The DeletedBackupVaultResource items on this page
+	Value []*DeletedBackupVaultResource
+
+	// The link to the next page of items
+	NextLink *string
 }
 
 // DeletionInfo - Deletion Info
@@ -1765,7 +1950,7 @@ type Operation struct {
 	Origin *Origin
 }
 
-// OperationDisplay - Localized display information for and operation.
+// OperationDisplay - Localized display information for an operation.
 type OperationDisplay struct {
 	// READ-ONLY; The short, localized friendly description of the operation; suitable for tool tips and detailed views.
 	Description *string
@@ -1940,6 +2125,18 @@ type RecoveryPointDataStoreDetails struct {
 
 	// READ-ONLY
 	RehydrationStatus *RehydrationStatus
+}
+
+// ResourceDeletionInfo - Deletion info for a tracked resource (Backup Vault)
+type ResourceDeletionInfo struct {
+	// READ-ONLY; Delete activity ID for troubleshooting the deletion of the tracked resource
+	DeleteActivityID *string
+
+	// READ-ONLY; Specifies time of deletion for the tracked resource (Backup Vault)
+	DeletionTime *time.Time
+
+	// READ-ONLY; Specifies the scheduled purge time for the tracked resource (Backup Vault)
+	ScheduledPurgeTime *time.Time
 }
 
 type ResourceGuard struct {

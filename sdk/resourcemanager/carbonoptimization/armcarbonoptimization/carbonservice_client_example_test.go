@@ -32,7 +32,7 @@ func ExampleCarbonServiceClient_QueryCarbonEmissionDataAvailableDateRange() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armcarbonoptimization.CarbonServiceClientQueryCarbonEmissionDataAvailableDateRangeResponse{
-	// 	CarbonEmissionDataAvailableDateRange: &armcarbonoptimization.CarbonEmissionDataAvailableDateRange{
+	// 	CarbonEmissionDataAvailableDateRange: armcarbonoptimization.CarbonEmissionDataAvailableDateRange{
 	// 		StartDate: to.Ptr("2023-01-01"),
 	// 		EndDate: to.Ptr("2023-05-01"),
 	// 	},
@@ -68,8 +68,8 @@ func ExampleCarbonServiceClient_QueryCarbonEmissionReports_queryCarbonEmissionLo
 			to.Ptr(armcarbonoptimization.EmissionScopeEnumScope3),
 		},
 		DateRange: &armcarbonoptimization.DateRange{
-			Start: to.Ptr(func() time.Time { t, _ := time.Parse("2006-01-02", "2024-05-01"); return t }()),
-			End:   to.Ptr(func() time.Time { t, _ := time.Parse("2006-01-02", "2024-05-01"); return t }()),
+			Start: to.Ptr(func() time.Time { t, _ := time.Parse(time.DateOnly, "2024-05-01"); return t }()),
+			End:   to.Ptr(func() time.Time { t, _ := time.Parse(time.DateOnly, "2024-05-01"); return t }()),
 		},
 		CategoryType:  to.Ptr(armcarbonoptimization.CategoryTypeEnumLocation),
 		OrderBy:       to.Ptr(armcarbonoptimization.OrderByColumnEnumLatestMonthEmissions),
@@ -83,7 +83,7 @@ func ExampleCarbonServiceClient_QueryCarbonEmissionReports_queryCarbonEmissionLo
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armcarbonoptimization.CarbonServiceClientQueryCarbonEmissionReportsResponse{
-	// 	CarbonEmissionDataListResult: &armcarbonoptimization.CarbonEmissionDataListResult{
+	// 	CarbonEmissionDataListResult: armcarbonoptimization.CarbonEmissionDataListResult{
 	// 		SubscriptionAccessDecisionList: []*armcarbonoptimization.SubscriptionAccessDecision{
 	// 			{
 	// 				SubscriptionID: to.Ptr("00000000-0000-0000-0000-000000000000"),
@@ -195,8 +195,8 @@ func ExampleCarbonServiceClient_QueryCarbonEmissionReports_queryCarbonEmissionOv
 			to.Ptr(armcarbonoptimization.EmissionScopeEnumScope3),
 		},
 		DateRange: &armcarbonoptimization.DateRange{
-			Start: to.Ptr(func() time.Time { t, _ := time.Parse("2006-01-02", "2024-03-01"); return t }()),
-			End:   to.Ptr(func() time.Time { t, _ := time.Parse("2006-01-02", "2024-05-01"); return t }()),
+			Start: to.Ptr(func() time.Time { t, _ := time.Parse(time.DateOnly, "2024-03-01"); return t }()),
+			End:   to.Ptr(func() time.Time { t, _ := time.Parse(time.DateOnly, "2024-05-01"); return t }()),
 		},
 	}, nil)
 	if err != nil {
@@ -206,7 +206,7 @@ func ExampleCarbonServiceClient_QueryCarbonEmissionReports_queryCarbonEmissionOv
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armcarbonoptimization.CarbonServiceClientQueryCarbonEmissionReportsResponse{
-	// 	CarbonEmissionDataListResult: &armcarbonoptimization.CarbonEmissionDataListResult{
+	// 	CarbonEmissionDataListResult: armcarbonoptimization.CarbonEmissionDataListResult{
 	// 		SubscriptionAccessDecisionList: []*armcarbonoptimization.SubscriptionAccessDecision{
 	// 			{
 	// 				SubscriptionID: to.Ptr("00000000-0000-0000-0000-000000000000"),
@@ -267,8 +267,8 @@ func ExampleCarbonServiceClient_QueryCarbonEmissionReports_queryCarbonEmissionMo
 			to.Ptr(armcarbonoptimization.EmissionScopeEnumScope3),
 		},
 		DateRange: &armcarbonoptimization.DateRange{
-			Start: to.Ptr(func() time.Time { t, _ := time.Parse("2006-01-02", "2024-03-01"); return t }()),
-			End:   to.Ptr(func() time.Time { t, _ := time.Parse("2006-01-02", "2024-05-01"); return t }()),
+			Start: to.Ptr(func() time.Time { t, _ := time.Parse(time.DateOnly, "2024-03-01"); return t }()),
+			End:   to.Ptr(func() time.Time { t, _ := time.Parse(time.DateOnly, "2024-05-01"); return t }()),
 		},
 		LocationList: []*string{
 			to.Ptr("east us"),
@@ -289,7 +289,7 @@ func ExampleCarbonServiceClient_QueryCarbonEmissionReports_queryCarbonEmissionMo
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armcarbonoptimization.CarbonServiceClientQueryCarbonEmissionReportsResponse{
-	// 	CarbonEmissionDataListResult: &armcarbonoptimization.CarbonEmissionDataListResult{
+	// 	CarbonEmissionDataListResult: armcarbonoptimization.CarbonEmissionDataListResult{
 	// 		SubscriptionAccessDecisionList: []*armcarbonoptimization.SubscriptionAccessDecision{
 	// 			{
 	// 				SubscriptionID: to.Ptr("00000000-0000-0000-0000-000000000000"),
@@ -350,8 +350,8 @@ func ExampleCarbonServiceClient_QueryCarbonEmissionReports_queryCarbonEmissionOv
 			to.Ptr(armcarbonoptimization.EmissionScopeEnumScope3),
 		},
 		DateRange: &armcarbonoptimization.DateRange{
-			Start: to.Ptr(func() time.Time { t, _ := time.Parse("2006-01-02", "2023-06-01"); return t }()),
-			End:   to.Ptr(func() time.Time { t, _ := time.Parse("2006-01-02", "2023-06-01"); return t }()),
+			Start: to.Ptr(func() time.Time { t, _ := time.Parse(time.DateOnly, "2023-06-01"); return t }()),
+			End:   to.Ptr(func() time.Time { t, _ := time.Parse(time.DateOnly, "2023-06-01"); return t }()),
 		},
 	}, nil)
 	if err != nil {
@@ -361,7 +361,7 @@ func ExampleCarbonServiceClient_QueryCarbonEmissionReports_queryCarbonEmissionOv
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armcarbonoptimization.CarbonServiceClientQueryCarbonEmissionReportsResponse{
-	// 	CarbonEmissionDataListResult: &armcarbonoptimization.CarbonEmissionDataListResult{
+	// 	CarbonEmissionDataListResult: armcarbonoptimization.CarbonEmissionDataListResult{
 	// 		SubscriptionAccessDecisionList: []*armcarbonoptimization.SubscriptionAccessDecision{
 	// 			{
 	// 				SubscriptionID: to.Ptr("00000000-0000-0000-0000-000000000000"),
@@ -402,8 +402,8 @@ func ExampleCarbonServiceClient_QueryCarbonEmissionReports_queryCarbonEmissionOv
 			to.Ptr(armcarbonoptimization.EmissionScopeEnumScope3),
 		},
 		DateRange: &armcarbonoptimization.DateRange{
-			Start: to.Ptr(func() time.Time { t, _ := time.Parse("2006-01-02", "2023-06-01"); return t }()),
-			End:   to.Ptr(func() time.Time { t, _ := time.Parse("2006-01-02", "2023-06-01"); return t }()),
+			Start: to.Ptr(func() time.Time { t, _ := time.Parse(time.DateOnly, "2023-06-01"); return t }()),
+			End:   to.Ptr(func() time.Time { t, _ := time.Parse(time.DateOnly, "2023-06-01"); return t }()),
 		},
 		LocationList: []*string{
 			to.Ptr("east us"),
@@ -424,7 +424,7 @@ func ExampleCarbonServiceClient_QueryCarbonEmissionReports_queryCarbonEmissionOv
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armcarbonoptimization.CarbonServiceClientQueryCarbonEmissionReportsResponse{
-	// 	CarbonEmissionDataListResult: &armcarbonoptimization.CarbonEmissionDataListResult{
+	// 	CarbonEmissionDataListResult: armcarbonoptimization.CarbonEmissionDataListResult{
 	// 		SubscriptionAccessDecisionList: []*armcarbonoptimization.SubscriptionAccessDecision{
 	// 			{
 	// 				SubscriptionID: to.Ptr("00000000-0000-0000-0000-000000000000"),
@@ -473,8 +473,8 @@ func ExampleCarbonServiceClient_QueryCarbonEmissionReports_queryCarbonEmissionRe
 			to.Ptr(armcarbonoptimization.EmissionScopeEnumScope3),
 		},
 		DateRange: &armcarbonoptimization.DateRange{
-			Start: to.Ptr(func() time.Time { t, _ := time.Parse("2006-01-02", "2024-05-01"); return t }()),
-			End:   to.Ptr(func() time.Time { t, _ := time.Parse("2006-01-02", "2024-05-01"); return t }()),
+			Start: to.Ptr(func() time.Time { t, _ := time.Parse(time.DateOnly, "2024-05-01"); return t }()),
+			End:   to.Ptr(func() time.Time { t, _ := time.Parse(time.DateOnly, "2024-05-01"); return t }()),
 		},
 		CategoryType:  to.Ptr(armcarbonoptimization.CategoryTypeEnumResourceGroup),
 		OrderBy:       to.Ptr(armcarbonoptimization.OrderByColumnEnumLatestMonthEmissions),
@@ -488,7 +488,7 @@ func ExampleCarbonServiceClient_QueryCarbonEmissionReports_queryCarbonEmissionRe
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armcarbonoptimization.CarbonServiceClientQueryCarbonEmissionReportsResponse{
-	// 	CarbonEmissionDataListResult: &armcarbonoptimization.CarbonEmissionDataListResult{
+	// 	CarbonEmissionDataListResult: armcarbonoptimization.CarbonEmissionDataListResult{
 	// 		SubscriptionAccessDecisionList: []*armcarbonoptimization.SubscriptionAccessDecision{
 	// 			{
 	// 				SubscriptionID: to.Ptr("00000000-0000-0000-0000-000000000000"),
@@ -618,8 +618,8 @@ func ExampleCarbonServiceClient_QueryCarbonEmissionReports_queryCarbonEmissionRe
 			to.Ptr(armcarbonoptimization.EmissionScopeEnumScope3),
 		},
 		DateRange: &armcarbonoptimization.DateRange{
-			Start: to.Ptr(func() time.Time { t, _ := time.Parse("2006-01-02", "2024-05-01"); return t }()),
-			End:   to.Ptr(func() time.Time { t, _ := time.Parse("2006-01-02", "2024-05-01"); return t }()),
+			Start: to.Ptr(func() time.Time { t, _ := time.Parse(time.DateOnly, "2024-05-01"); return t }()),
+			End:   to.Ptr(func() time.Time { t, _ := time.Parse(time.DateOnly, "2024-05-01"); return t }()),
 		},
 		CategoryType:  to.Ptr(armcarbonoptimization.CategoryTypeEnumResource),
 		OrderBy:       to.Ptr(armcarbonoptimization.OrderByColumnEnumLatestMonthEmissions),
@@ -633,7 +633,7 @@ func ExampleCarbonServiceClient_QueryCarbonEmissionReports_queryCarbonEmissionRe
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armcarbonoptimization.CarbonServiceClientQueryCarbonEmissionReportsResponse{
-	// 	CarbonEmissionDataListResult: &armcarbonoptimization.CarbonEmissionDataListResult{
+	// 	CarbonEmissionDataListResult: armcarbonoptimization.CarbonEmissionDataListResult{
 	// 		SubscriptionAccessDecisionList: []*armcarbonoptimization.SubscriptionAccessDecision{
 	// 			{
 	// 				SubscriptionID: to.Ptr("00000000-0000-0000-0000-000000000000"),
@@ -779,8 +779,8 @@ func ExampleCarbonServiceClient_QueryCarbonEmissionReports_queryCarbonEmissionRe
 			to.Ptr(armcarbonoptimization.EmissionScopeEnumScope3),
 		},
 		DateRange: &armcarbonoptimization.DateRange{
-			Start: to.Ptr(func() time.Time { t, _ := time.Parse("2006-01-02", "2024-05-01"); return t }()),
-			End:   to.Ptr(func() time.Time { t, _ := time.Parse("2006-01-02", "2024-05-01"); return t }()),
+			Start: to.Ptr(func() time.Time { t, _ := time.Parse(time.DateOnly, "2024-05-01"); return t }()),
+			End:   to.Ptr(func() time.Time { t, _ := time.Parse(time.DateOnly, "2024-05-01"); return t }()),
 		},
 		CategoryType:  to.Ptr(armcarbonoptimization.CategoryTypeEnumResource),
 		OrderBy:       to.Ptr(armcarbonoptimization.OrderByColumnEnumLatestMonthEmissions),
@@ -795,7 +795,7 @@ func ExampleCarbonServiceClient_QueryCarbonEmissionReports_queryCarbonEmissionRe
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armcarbonoptimization.CarbonServiceClientQueryCarbonEmissionReportsResponse{
-	// 	CarbonEmissionDataListResult: &armcarbonoptimization.CarbonEmissionDataListResult{
+	// 	CarbonEmissionDataListResult: armcarbonoptimization.CarbonEmissionDataListResult{
 	// 		SubscriptionAccessDecisionList: []*armcarbonoptimization.SubscriptionAccessDecision{
 	// 			{
 	// 				SubscriptionID: to.Ptr("00000000-0000-0000-0000-000000000000"),
@@ -940,8 +940,8 @@ func ExampleCarbonServiceClient_QueryCarbonEmissionReports_queryCarbonEmissionRe
 			to.Ptr(armcarbonoptimization.EmissionScopeEnumScope3),
 		},
 		DateRange: &armcarbonoptimization.DateRange{
-			Start: to.Ptr(func() time.Time { t, _ := time.Parse("2006-01-02", "2024-05-01"); return t }()),
-			End:   to.Ptr(func() time.Time { t, _ := time.Parse("2006-01-02", "2024-05-01"); return t }()),
+			Start: to.Ptr(func() time.Time { t, _ := time.Parse(time.DateOnly, "2024-05-01"); return t }()),
+			End:   to.Ptr(func() time.Time { t, _ := time.Parse(time.DateOnly, "2024-05-01"); return t }()),
 		},
 		CategoryType:  to.Ptr(armcarbonoptimization.CategoryTypeEnumResourceType),
 		OrderBy:       to.Ptr(armcarbonoptimization.OrderByColumnEnumLatestMonthEmissions),
@@ -955,7 +955,7 @@ func ExampleCarbonServiceClient_QueryCarbonEmissionReports_queryCarbonEmissionRe
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armcarbonoptimization.CarbonServiceClientQueryCarbonEmissionReportsResponse{
-	// 	CarbonEmissionDataListResult: &armcarbonoptimization.CarbonEmissionDataListResult{
+	// 	CarbonEmissionDataListResult: armcarbonoptimization.CarbonEmissionDataListResult{
 	// 		SubscriptionAccessDecisionList: []*armcarbonoptimization.SubscriptionAccessDecision{
 	// 			{
 	// 				SubscriptionID: to.Ptr("00000000-0000-0000-0000-000000000000"),
@@ -1075,8 +1075,8 @@ func ExampleCarbonServiceClient_QueryCarbonEmissionReports_queryCarbonEmissionSu
 			to.Ptr(armcarbonoptimization.EmissionScopeEnumScope3),
 		},
 		DateRange: &armcarbonoptimization.DateRange{
-			Start: to.Ptr(func() time.Time { t, _ := time.Parse("2006-01-02", "2024-05-01"); return t }()),
-			End:   to.Ptr(func() time.Time { t, _ := time.Parse("2006-01-02", "2024-05-01"); return t }()),
+			Start: to.Ptr(func() time.Time { t, _ := time.Parse(time.DateOnly, "2024-05-01"); return t }()),
+			End:   to.Ptr(func() time.Time { t, _ := time.Parse(time.DateOnly, "2024-05-01"); return t }()),
 		},
 		CategoryType:  to.Ptr(armcarbonoptimization.CategoryTypeEnumSubscription),
 		OrderBy:       to.Ptr(armcarbonoptimization.OrderByColumnEnumLatestMonthEmissions),
@@ -1090,7 +1090,7 @@ func ExampleCarbonServiceClient_QueryCarbonEmissionReports_queryCarbonEmissionSu
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armcarbonoptimization.CarbonServiceClientQueryCarbonEmissionReportsResponse{
-	// 	CarbonEmissionDataListResult: &armcarbonoptimization.CarbonEmissionDataListResult{
+	// 	CarbonEmissionDataListResult: armcarbonoptimization.CarbonEmissionDataListResult{
 	// 		SubscriptionAccessDecisionList: []*armcarbonoptimization.SubscriptionAccessDecision{
 	// 			{
 	// 				SubscriptionID: to.Ptr("00000000-0000-0000-0000-000000000000"),
@@ -1210,8 +1210,8 @@ func ExampleCarbonServiceClient_QueryCarbonEmissionReports_queryCarbonEmissionTo
 			to.Ptr(armcarbonoptimization.EmissionScopeEnumScope3),
 		},
 		DateRange: &armcarbonoptimization.DateRange{
-			Start: to.Ptr(func() time.Time { t, _ := time.Parse("2006-01-02", "2024-03-01"); return t }()),
-			End:   to.Ptr(func() time.Time { t, _ := time.Parse("2006-01-02", "2024-05-01"); return t }()),
+			Start: to.Ptr(func() time.Time { t, _ := time.Parse(time.DateOnly, "2024-03-01"); return t }()),
+			End:   to.Ptr(func() time.Time { t, _ := time.Parse(time.DateOnly, "2024-05-01"); return t }()),
 		},
 		CategoryType: to.Ptr(armcarbonoptimization.CategoryTypeEnumLocation),
 		TopItems:     to.Ptr[int32](2),
@@ -1223,7 +1223,7 @@ func ExampleCarbonServiceClient_QueryCarbonEmissionReports_queryCarbonEmissionTo
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armcarbonoptimization.CarbonServiceClientQueryCarbonEmissionReportsResponse{
-	// 	CarbonEmissionDataListResult: &armcarbonoptimization.CarbonEmissionDataListResult{
+	// 	CarbonEmissionDataListResult: armcarbonoptimization.CarbonEmissionDataListResult{
 	// 		SubscriptionAccessDecisionList: []*armcarbonoptimization.SubscriptionAccessDecision{
 	// 			{
 	// 				SubscriptionID: to.Ptr("00000000-0000-0000-0000-000000000000"),
@@ -1358,8 +1358,8 @@ func ExampleCarbonServiceClient_QueryCarbonEmissionReports_queryCarbonEmissionTo
 			to.Ptr(armcarbonoptimization.EmissionScopeEnumScope3),
 		},
 		DateRange: &armcarbonoptimization.DateRange{
-			Start: to.Ptr(func() time.Time { t, _ := time.Parse("2006-01-02", "2024-05-01"); return t }()),
-			End:   to.Ptr(func() time.Time { t, _ := time.Parse("2006-01-02", "2024-05-01"); return t }()),
+			Start: to.Ptr(func() time.Time { t, _ := time.Parse(time.DateOnly, "2024-05-01"); return t }()),
+			End:   to.Ptr(func() time.Time { t, _ := time.Parse(time.DateOnly, "2024-05-01"); return t }()),
 		},
 		CategoryType: to.Ptr(armcarbonoptimization.CategoryTypeEnumLocation),
 		TopItems:     to.Ptr[int32](5),
@@ -1371,7 +1371,7 @@ func ExampleCarbonServiceClient_QueryCarbonEmissionReports_queryCarbonEmissionTo
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armcarbonoptimization.CarbonServiceClientQueryCarbonEmissionReportsResponse{
-	// 	CarbonEmissionDataListResult: &armcarbonoptimization.CarbonEmissionDataListResult{
+	// 	CarbonEmissionDataListResult: armcarbonoptimization.CarbonEmissionDataListResult{
 	// 		SubscriptionAccessDecisionList: []*armcarbonoptimization.SubscriptionAccessDecision{
 	// 			{
 	// 				SubscriptionID: to.Ptr("00000000-0000-0000-0000-000000000000"),
@@ -1491,8 +1491,8 @@ func ExampleCarbonServiceClient_QueryCarbonEmissionReports_queryCarbonEmissionTo
 			to.Ptr(armcarbonoptimization.EmissionScopeEnumScope3),
 		},
 		DateRange: &armcarbonoptimization.DateRange{
-			Start: to.Ptr(func() time.Time { t, _ := time.Parse("2006-01-02", "2024-03-01"); return t }()),
-			End:   to.Ptr(func() time.Time { t, _ := time.Parse("2006-01-02", "2024-05-01"); return t }()),
+			Start: to.Ptr(func() time.Time { t, _ := time.Parse(time.DateOnly, "2024-03-01"); return t }()),
+			End:   to.Ptr(func() time.Time { t, _ := time.Parse(time.DateOnly, "2024-05-01"); return t }()),
 		},
 		CategoryType: to.Ptr(armcarbonoptimization.CategoryTypeEnumResourceGroup),
 		TopItems:     to.Ptr[int32](2),
@@ -1504,7 +1504,7 @@ func ExampleCarbonServiceClient_QueryCarbonEmissionReports_queryCarbonEmissionTo
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armcarbonoptimization.CarbonServiceClientQueryCarbonEmissionReportsResponse{
-	// 	CarbonEmissionDataListResult: &armcarbonoptimization.CarbonEmissionDataListResult{
+	// 	CarbonEmissionDataListResult: armcarbonoptimization.CarbonEmissionDataListResult{
 	// 		SubscriptionAccessDecisionList: []*armcarbonoptimization.SubscriptionAccessDecision{
 	// 			{
 	// 				SubscriptionID: to.Ptr("00000000-0000-0000-0000-000000000000"),
@@ -1651,8 +1651,8 @@ func ExampleCarbonServiceClient_QueryCarbonEmissionReports_queryCarbonEmissionTo
 			to.Ptr(armcarbonoptimization.EmissionScopeEnumScope3),
 		},
 		DateRange: &armcarbonoptimization.DateRange{
-			Start: to.Ptr(func() time.Time { t, _ := time.Parse("2006-01-02", "2024-05-01"); return t }()),
-			End:   to.Ptr(func() time.Time { t, _ := time.Parse("2006-01-02", "2024-05-01"); return t }()),
+			Start: to.Ptr(func() time.Time { t, _ := time.Parse(time.DateOnly, "2024-05-01"); return t }()),
+			End:   to.Ptr(func() time.Time { t, _ := time.Parse(time.DateOnly, "2024-05-01"); return t }()),
 		},
 		CategoryType: to.Ptr(armcarbonoptimization.CategoryTypeEnumResourceGroup),
 		TopItems:     to.Ptr[int32](5),
@@ -1664,7 +1664,7 @@ func ExampleCarbonServiceClient_QueryCarbonEmissionReports_queryCarbonEmissionTo
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armcarbonoptimization.CarbonServiceClientQueryCarbonEmissionReportsResponse{
-	// 	CarbonEmissionDataListResult: &armcarbonoptimization.CarbonEmissionDataListResult{
+	// 	CarbonEmissionDataListResult: armcarbonoptimization.CarbonEmissionDataListResult{
 	// 		SubscriptionAccessDecisionList: []*armcarbonoptimization.SubscriptionAccessDecision{
 	// 			{
 	// 				SubscriptionID: to.Ptr("00000000-0000-0000-0000-000000000000"),
@@ -1794,8 +1794,8 @@ func ExampleCarbonServiceClient_QueryCarbonEmissionReports_queryCarbonEmissionTo
 			to.Ptr(armcarbonoptimization.EmissionScopeEnumScope3),
 		},
 		DateRange: &armcarbonoptimization.DateRange{
-			Start: to.Ptr(func() time.Time { t, _ := time.Parse("2006-01-02", "2024-03-01"); return t }()),
-			End:   to.Ptr(func() time.Time { t, _ := time.Parse("2006-01-02", "2024-05-01"); return t }()),
+			Start: to.Ptr(func() time.Time { t, _ := time.Parse(time.DateOnly, "2024-03-01"); return t }()),
+			End:   to.Ptr(func() time.Time { t, _ := time.Parse(time.DateOnly, "2024-05-01"); return t }()),
 		},
 		CategoryType: to.Ptr(armcarbonoptimization.CategoryTypeEnumResource),
 		TopItems:     to.Ptr[int32](2),
@@ -1807,7 +1807,7 @@ func ExampleCarbonServiceClient_QueryCarbonEmissionReports_queryCarbonEmissionTo
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armcarbonoptimization.CarbonServiceClientQueryCarbonEmissionReportsResponse{
-	// 	CarbonEmissionDataListResult: &armcarbonoptimization.CarbonEmissionDataListResult{
+	// 	CarbonEmissionDataListResult: armcarbonoptimization.CarbonEmissionDataListResult{
 	// 		SubscriptionAccessDecisionList: []*armcarbonoptimization.SubscriptionAccessDecision{
 	// 			{
 	// 				SubscriptionID: to.Ptr("00000000-0000-0000-0000-000000000000"),
@@ -1960,8 +1960,8 @@ func ExampleCarbonServiceClient_QueryCarbonEmissionReports_queryCarbonEmissionTo
 			to.Ptr(armcarbonoptimization.EmissionScopeEnumScope3),
 		},
 		DateRange: &armcarbonoptimization.DateRange{
-			Start: to.Ptr(func() time.Time { t, _ := time.Parse("2006-01-02", "2024-05-01"); return t }()),
-			End:   to.Ptr(func() time.Time { t, _ := time.Parse("2006-01-02", "2024-05-01"); return t }()),
+			Start: to.Ptr(func() time.Time { t, _ := time.Parse(time.DateOnly, "2024-05-01"); return t }()),
+			End:   to.Ptr(func() time.Time { t, _ := time.Parse(time.DateOnly, "2024-05-01"); return t }()),
 		},
 		CategoryType: to.Ptr(armcarbonoptimization.CategoryTypeEnumResource),
 		TopItems:     to.Ptr[int32](5),
@@ -1973,7 +1973,7 @@ func ExampleCarbonServiceClient_QueryCarbonEmissionReports_queryCarbonEmissionTo
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armcarbonoptimization.CarbonServiceClientQueryCarbonEmissionReportsResponse{
-	// 	CarbonEmissionDataListResult: &armcarbonoptimization.CarbonEmissionDataListResult{
+	// 	CarbonEmissionDataListResult: armcarbonoptimization.CarbonEmissionDataListResult{
 	// 		SubscriptionAccessDecisionList: []*armcarbonoptimization.SubscriptionAccessDecision{
 	// 			{
 	// 				SubscriptionID: to.Ptr("00000000-0000-0000-0000-000000000000"),
@@ -2108,8 +2108,8 @@ func ExampleCarbonServiceClient_QueryCarbonEmissionReports_queryCarbonEmissionTo
 			to.Ptr(armcarbonoptimization.EmissionScopeEnumScope3),
 		},
 		DateRange: &armcarbonoptimization.DateRange{
-			Start: to.Ptr(func() time.Time { t, _ := time.Parse("2006-01-02", "2024-03-01"); return t }()),
-			End:   to.Ptr(func() time.Time { t, _ := time.Parse("2006-01-02", "2024-05-01"); return t }()),
+			Start: to.Ptr(func() time.Time { t, _ := time.Parse(time.DateOnly, "2024-03-01"); return t }()),
+			End:   to.Ptr(func() time.Time { t, _ := time.Parse(time.DateOnly, "2024-05-01"); return t }()),
 		},
 		CategoryType: to.Ptr(armcarbonoptimization.CategoryTypeEnumResourceType),
 		TopItems:     to.Ptr[int32](2),
@@ -2121,7 +2121,7 @@ func ExampleCarbonServiceClient_QueryCarbonEmissionReports_queryCarbonEmissionTo
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armcarbonoptimization.CarbonServiceClientQueryCarbonEmissionReportsResponse{
-	// 	CarbonEmissionDataListResult: &armcarbonoptimization.CarbonEmissionDataListResult{
+	// 	CarbonEmissionDataListResult: armcarbonoptimization.CarbonEmissionDataListResult{
 	// 		SubscriptionAccessDecisionList: []*armcarbonoptimization.SubscriptionAccessDecision{
 	// 			{
 	// 				SubscriptionID: to.Ptr("00000000-0000-0000-0000-000000000000"),
@@ -2256,8 +2256,8 @@ func ExampleCarbonServiceClient_QueryCarbonEmissionReports_queryCarbonEmissionTo
 			to.Ptr(armcarbonoptimization.EmissionScopeEnumScope3),
 		},
 		DateRange: &armcarbonoptimization.DateRange{
-			Start: to.Ptr(func() time.Time { t, _ := time.Parse("2006-01-02", "2024-05-01"); return t }()),
-			End:   to.Ptr(func() time.Time { t, _ := time.Parse("2006-01-02", "2024-05-01"); return t }()),
+			Start: to.Ptr(func() time.Time { t, _ := time.Parse(time.DateOnly, "2024-05-01"); return t }()),
+			End:   to.Ptr(func() time.Time { t, _ := time.Parse(time.DateOnly, "2024-05-01"); return t }()),
 		},
 		CategoryType: to.Ptr(armcarbonoptimization.CategoryTypeEnumResourceType),
 		TopItems:     to.Ptr[int32](5),
@@ -2269,7 +2269,7 @@ func ExampleCarbonServiceClient_QueryCarbonEmissionReports_queryCarbonEmissionTo
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armcarbonoptimization.CarbonServiceClientQueryCarbonEmissionReportsResponse{
-	// 	CarbonEmissionDataListResult: &armcarbonoptimization.CarbonEmissionDataListResult{
+	// 	CarbonEmissionDataListResult: armcarbonoptimization.CarbonEmissionDataListResult{
 	// 		SubscriptionAccessDecisionList: []*armcarbonoptimization.SubscriptionAccessDecision{
 	// 			{
 	// 				SubscriptionID: to.Ptr("00000000-0000-0000-0000-000000000000"),
@@ -2389,8 +2389,8 @@ func ExampleCarbonServiceClient_QueryCarbonEmissionReports_queryCarbonEmissionTo
 			to.Ptr(armcarbonoptimization.EmissionScopeEnumScope3),
 		},
 		DateRange: &armcarbonoptimization.DateRange{
-			Start: to.Ptr(func() time.Time { t, _ := time.Parse("2006-01-02", "2024-03-01"); return t }()),
-			End:   to.Ptr(func() time.Time { t, _ := time.Parse("2006-01-02", "2024-05-01"); return t }()),
+			Start: to.Ptr(func() time.Time { t, _ := time.Parse(time.DateOnly, "2024-03-01"); return t }()),
+			End:   to.Ptr(func() time.Time { t, _ := time.Parse(time.DateOnly, "2024-05-01"); return t }()),
 		},
 		CategoryType: to.Ptr(armcarbonoptimization.CategoryTypeEnumSubscription),
 		TopItems:     to.Ptr[int32](2),
@@ -2402,7 +2402,7 @@ func ExampleCarbonServiceClient_QueryCarbonEmissionReports_queryCarbonEmissionTo
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armcarbonoptimization.CarbonServiceClientQueryCarbonEmissionReportsResponse{
-	// 	CarbonEmissionDataListResult: &armcarbonoptimization.CarbonEmissionDataListResult{
+	// 	CarbonEmissionDataListResult: armcarbonoptimization.CarbonEmissionDataListResult{
 	// 		SubscriptionAccessDecisionList: []*armcarbonoptimization.SubscriptionAccessDecision{
 	// 			{
 	// 				SubscriptionID: to.Ptr("00000000-0000-0000-0000-000000000000"),
@@ -2537,8 +2537,8 @@ func ExampleCarbonServiceClient_QueryCarbonEmissionReports_queryCarbonEmissionTo
 			to.Ptr(armcarbonoptimization.EmissionScopeEnumScope3),
 		},
 		DateRange: &armcarbonoptimization.DateRange{
-			Start: to.Ptr(func() time.Time { t, _ := time.Parse("2006-01-02", "2024-05-01"); return t }()),
-			End:   to.Ptr(func() time.Time { t, _ := time.Parse("2006-01-02", "2024-05-01"); return t }()),
+			Start: to.Ptr(func() time.Time { t, _ := time.Parse(time.DateOnly, "2024-05-01"); return t }()),
+			End:   to.Ptr(func() time.Time { t, _ := time.Parse(time.DateOnly, "2024-05-01"); return t }()),
 		},
 		CategoryType: to.Ptr(armcarbonoptimization.CategoryTypeEnumSubscription),
 		TopItems:     to.Ptr[int32](5),
@@ -2550,7 +2550,7 @@ func ExampleCarbonServiceClient_QueryCarbonEmissionReports_queryCarbonEmissionTo
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armcarbonoptimization.CarbonServiceClientQueryCarbonEmissionReportsResponse{
-	// 	CarbonEmissionDataListResult: &armcarbonoptimization.CarbonEmissionDataListResult{
+	// 	CarbonEmissionDataListResult: armcarbonoptimization.CarbonEmissionDataListResult{
 	// 		SubscriptionAccessDecisionList: []*armcarbonoptimization.SubscriptionAccessDecision{
 	// 			{
 	// 				SubscriptionID: to.Ptr("00000000-0000-0000-0000-000000000000"),

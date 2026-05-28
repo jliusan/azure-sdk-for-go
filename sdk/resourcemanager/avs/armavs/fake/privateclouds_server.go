@@ -16,6 +16,7 @@ import (
 	"net/http"
 	"net/url"
 	"regexp"
+	"slices"
 )
 
 // PrivateCloudsServer is a fake server for instances of the armavs.PrivateCloudsClient type.
@@ -31,6 +32,10 @@ type PrivateCloudsServer struct {
 	// Get is the fake for method PrivateCloudsClient.Get
 	// HTTP status codes to indicate success: http.StatusOK
 	Get func(ctx context.Context, resourceGroupName string, privateCloudName string, options *armavs.PrivateCloudsClientGetOptions) (resp azfake.Responder[armavs.PrivateCloudsClientGetResponse], errResp azfake.ErrorResponder)
+
+	// GetVcfLicense is the fake for method PrivateCloudsClient.GetVcfLicense
+	// HTTP status codes to indicate success: http.StatusOK
+	GetVcfLicense func(ctx context.Context, resourceGroupName string, privateCloudName string, options *armavs.PrivateCloudsClientGetVcfLicenseOptions) (resp azfake.Responder[armavs.PrivateCloudsClientGetVcfLicenseResponse], errResp azfake.ErrorResponder)
 
 	// NewListPager is the fake for method PrivateCloudsClient.NewListPager
 	// HTTP status codes to indicate success: http.StatusOK
@@ -98,9 +103,7 @@ func (p *PrivateCloudsServerTransport) Do(req *http.Request) (*http.Response, er
 }
 
 func (p *PrivateCloudsServerTransport) dispatchToMethodFake(req *http.Request, method string) (*http.Response, error) {
-	resultChan := make(chan result)
-	defer close(resultChan)
-
+	resultChan := make(chan result, 1)
 	go func() {
 		var intercepted bool
 		var res result
@@ -115,6 +118,8 @@ func (p *PrivateCloudsServerTransport) dispatchToMethodFake(req *http.Request, m
 				res.resp, res.err = p.dispatchBeginDelete(req)
 			case "PrivateCloudsClient.Get":
 				res.resp, res.err = p.dispatchGet(req)
+			case "PrivateCloudsClient.GetVcfLicense":
+				res.resp, res.err = p.dispatchGetVcfLicense(req)
 			case "PrivateCloudsClient.NewListPager":
 				res.resp, res.err = p.dispatchNewListPager(req)
 			case "PrivateCloudsClient.ListAdminCredentials":
@@ -132,10 +137,7 @@ func (p *PrivateCloudsServerTransport) dispatchToMethodFake(req *http.Request, m
 			}
 
 		}
-		select {
-		case resultChan <- res:
-		case <-req.Context().Done():
-		}
+		resultChan <- res
 	}()
 
 	select {
@@ -183,7 +185,7 @@ func (p *PrivateCloudsServerTransport) dispatchBeginCreateOrUpdate(req *http.Req
 		return nil, err
 	}
 
-	if !contains([]int{http.StatusOK, http.StatusCreated}, resp.StatusCode) {
+	if !slices.Contains([]int{http.StatusOK, http.StatusCreated}, resp.StatusCode) {
 		p.beginCreateOrUpdate.remove(req)
 		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusCreated", resp.StatusCode)}
 	}
@@ -227,7 +229,7 @@ func (p *PrivateCloudsServerTransport) dispatchBeginDelete(req *http.Request) (*
 		return nil, err
 	}
 
-	if !contains([]int{http.StatusOK, http.StatusAccepted, http.StatusNoContent}, resp.StatusCode) {
+	if !slices.Contains([]int{http.StatusOK, http.StatusAccepted, http.StatusNoContent}, resp.StatusCode) {
 		p.beginDelete.remove(req)
 		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusAccepted, http.StatusNoContent", resp.StatusCode)}
 	}
@@ -261,10 +263,43 @@ func (p *PrivateCloudsServerTransport) dispatchGet(req *http.Request) (*http.Res
 		return nil, respErr
 	}
 	respContent := server.GetResponseContent(respr)
-	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
+	if !slices.Contains([]int{http.StatusOK}, respContent.HTTPStatus) {
 		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
 	}
 	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).PrivateCloud, req)
+	if err != nil {
+		return nil, err
+	}
+	return resp, nil
+}
+
+func (p *PrivateCloudsServerTransport) dispatchGetVcfLicense(req *http.Request) (*http.Response, error) {
+	if p.srv.GetVcfLicense == nil {
+		return nil, &nonRetriableError{errors.New("fake for method GetVcfLicense not implemented")}
+	}
+	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.AVS/privateClouds/(?P<privateCloudName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/getVcfLicense`
+	regex := regexp.MustCompile(regexStr)
+	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+	if len(matches) < 4 {
+		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+	}
+	resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+	if err != nil {
+		return nil, err
+	}
+	privateCloudNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("privateCloudName")])
+	if err != nil {
+		return nil, err
+	}
+	respr, errRespr := p.srv.GetVcfLicense(req.Context(), resourceGroupNameParam, privateCloudNameParam, nil)
+	if respErr := server.GetError(errRespr, req); respErr != nil {
+		return nil, respErr
+	}
+	respContent := server.GetResponseContent(respr)
+	if !slices.Contains([]int{http.StatusOK}, respContent.HTTPStatus) {
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
+	}
+	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).VcfLicenseClassification, req)
 	if err != nil {
 		return nil, err
 	}
@@ -298,7 +333,7 @@ func (p *PrivateCloudsServerTransport) dispatchNewListPager(req *http.Request) (
 	if err != nil {
 		return nil, err
 	}
-	if !contains([]int{http.StatusOK}, resp.StatusCode) {
+	if !slices.Contains([]int{http.StatusOK}, resp.StatusCode) {
 		p.newListPager.remove(req)
 		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", resp.StatusCode)}
 	}
@@ -331,7 +366,7 @@ func (p *PrivateCloudsServerTransport) dispatchListAdminCredentials(req *http.Re
 		return nil, respErr
 	}
 	respContent := server.GetResponseContent(respr)
-	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
+	if !slices.Contains([]int{http.StatusOK}, respContent.HTTPStatus) {
 		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
 	}
 	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).AdminCredentials, req)
@@ -364,7 +399,7 @@ func (p *PrivateCloudsServerTransport) dispatchNewListInSubscriptionPager(req *h
 	if err != nil {
 		return nil, err
 	}
-	if !contains([]int{http.StatusOK}, resp.StatusCode) {
+	if !slices.Contains([]int{http.StatusOK}, resp.StatusCode) {
 		p.newListInSubscriptionPager.remove(req)
 		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", resp.StatusCode)}
 	}
@@ -407,7 +442,7 @@ func (p *PrivateCloudsServerTransport) dispatchBeginRotateNsxtPassword(req *http
 		return nil, err
 	}
 
-	if !contains([]int{http.StatusOK, http.StatusAccepted, http.StatusNoContent}, resp.StatusCode) {
+	if !slices.Contains([]int{http.StatusOK, http.StatusAccepted, http.StatusNoContent}, resp.StatusCode) {
 		p.beginRotateNsxtPassword.remove(req)
 		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusAccepted, http.StatusNoContent", resp.StatusCode)}
 	}
@@ -451,7 +486,7 @@ func (p *PrivateCloudsServerTransport) dispatchBeginRotateVcenterPassword(req *h
 		return nil, err
 	}
 
-	if !contains([]int{http.StatusOK, http.StatusAccepted, http.StatusNoContent}, resp.StatusCode) {
+	if !slices.Contains([]int{http.StatusOK, http.StatusAccepted, http.StatusNoContent}, resp.StatusCode) {
 		p.beginRotateVcenterPassword.remove(req)
 		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusAccepted, http.StatusNoContent", resp.StatusCode)}
 	}
@@ -499,7 +534,7 @@ func (p *PrivateCloudsServerTransport) dispatchBeginUpdate(req *http.Request) (*
 		return nil, err
 	}
 
-	if !contains([]int{http.StatusOK, http.StatusCreated}, resp.StatusCode) {
+	if !slices.Contains([]int{http.StatusOK, http.StatusCreated}, resp.StatusCode) {
 		p.beginUpdate.remove(req)
 		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusCreated", resp.StatusCode)}
 	}

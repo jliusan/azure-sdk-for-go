@@ -6,14 +6,14 @@ package armkeyvault_test
 
 import (
 	"context"
-	"log"
-
+	"github.com/Azure/azure-sdk-for-go/sdk/azcore"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
 	"github.com/Azure/azure-sdk-for-go/sdk/azidentity"
 	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/keyvault/armkeyvault/v2"
+	"log"
 )
 
-// Generated from example definition: 2025-05-01/deletePrivateEndpointConnection.json
+// Generated from example definition: 2026-02-01/deletePrivateEndpointConnection.json
 func ExamplePrivateEndpointConnectionsClient_BeginDelete() {
 	cred, err := azidentity.NewDefaultAzureCredential(nil)
 	if err != nil {
@@ -47,7 +47,7 @@ func ExamplePrivateEndpointConnectionsClient_BeginDelete() {
 	// }
 }
 
-// Generated from example definition: 2025-05-01/getPrivateEndpointConnection.json
+// Generated from example definition: 2026-02-01/getPrivateEndpointConnection.json
 func ExamplePrivateEndpointConnectionsClient_Get() {
 	cred, err := azidentity.NewDefaultAzureCredential(nil)
 	if err != nil {
@@ -69,7 +69,7 @@ func ExamplePrivateEndpointConnectionsClient_Get() {
 	// 	PrivateEndpointConnection: &armkeyvault.PrivateEndpointConnection{
 	// 		Name: to.Ptr("sample-pec"),
 	// 		Type: to.Ptr("Microsoft.KeyVault/vaults/privateEndpointConnections"),
-	// 		Etag: &azcore.ETag(""),
+	// 		Etag: to.Ptr(azcore.ETag("")),
 	// 		ID: to.Ptr("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/sample-group/providers/Microsoft.KeyVault/vaults/sample-vault/privateEndpointConnections/sample-pec"),
 	// 		Properties: &armkeyvault.PrivateEndpointConnectionProperties{
 	// 			PrivateEndpoint: &armkeyvault.PrivateEndpoint{
@@ -86,7 +86,7 @@ func ExamplePrivateEndpointConnectionsClient_Get() {
 	// }
 }
 
-// Generated from example definition: 2025-05-01/listPrivateEndpointConnection.json
+// Generated from example definition: 2026-02-01/listPrivateEndpointConnection.json
 func ExamplePrivateEndpointConnectionsClient_NewListByResourcePager() {
 	cred, err := azidentity.NewDefaultAzureCredential(nil)
 	if err != nil {
@@ -114,7 +114,7 @@ func ExamplePrivateEndpointConnectionsClient_NewListByResourcePager() {
 		// 			{
 		// 				Name: to.Ptr("sample-pec"),
 		// 				Type: to.Ptr("Microsoft.KeyVault/vaults/privateEndpointConnections"),
-		// 				Etag: &azcore.ETag(""),
+		// 				Etag: to.Ptr(azcore.ETag("")),
 		// 				ID: to.Ptr("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/sample-group/providers/Microsoft.KeyVault/vaults/sample-vault/privateEndpointConnections/sample-pec"),
 		// 				Properties: &armkeyvault.PrivateEndpointConnectionProperties{
 		// 					PrivateEndpoint: &armkeyvault.PrivateEndpoint{
@@ -131,7 +131,7 @@ func ExamplePrivateEndpointConnectionsClient_NewListByResourcePager() {
 		// 			{
 		// 				Name: to.Ptr("sample-pec"),
 		// 				Type: to.Ptr("Microsoft.KeyVault/vaults/privateEndpointConnections"),
-		// 				Etag: &azcore.ETag(""),
+		// 				Etag: to.Ptr(azcore.ETag("")),
 		// 				ID: to.Ptr("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/sample-group/providers/Microsoft.KeyVault/vaults/sample-vault/privateEndpointConnections/sample-pec"),
 		// 				Properties: &armkeyvault.PrivateEndpointConnectionProperties{
 		// 					PrivateEndpoint: &armkeyvault.PrivateEndpoint{
@@ -151,7 +151,7 @@ func ExamplePrivateEndpointConnectionsClient_NewListByResourcePager() {
 	}
 }
 
-// Generated from example definition: 2025-05-01/putPrivateEndpointConnection.json
+// Generated from example definition: 2026-02-01/putPrivateEndpointConnection.json
 func ExamplePrivateEndpointConnectionsClient_Put() {
 	cred, err := azidentity.NewDefaultAzureCredential(nil)
 	if err != nil {
@@ -163,7 +163,7 @@ func ExamplePrivateEndpointConnectionsClient_Put() {
 		log.Fatalf("failed to create client: %v", err)
 	}
 	res, err := clientFactory.NewPrivateEndpointConnectionsClient().Put(ctx, "sample-group", "sample-vault", "sample-pec", armkeyvault.PrivateEndpointConnection{
-		Etag: nil,
+		Etag: to.Ptr(azcore.ETag("")),
 		Properties: &armkeyvault.PrivateEndpointConnectionProperties{
 			PrivateLinkServiceConnectionState: &armkeyvault.PrivateLinkServiceConnectionState{
 				Description: to.Ptr("My name is Joe and I'm approving this."),
@@ -181,7 +181,7 @@ func ExamplePrivateEndpointConnectionsClient_Put() {
 	// 	PrivateEndpointConnection: &armkeyvault.PrivateEndpointConnection{
 	// 		Name: to.Ptr("sample-pec"),
 	// 		Type: to.Ptr("Microsoft.KeyVault/vaults/privateEndpointConnections"),
-	// 		Etag: &azcore.ETag(""),
+	// 		Etag: to.Ptr(azcore.ETag("")),
 	// 		ID: to.Ptr("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/sample-group/providers/Microsoft.KeyVault/vaults/sample-vault/privateEndpointConnections/sample-pec"),
 	// 		Properties: &armkeyvault.PrivateEndpointConnectionProperties{
 	// 			PrivateEndpoint: &armkeyvault.PrivateEndpoint{

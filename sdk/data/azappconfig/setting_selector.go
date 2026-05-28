@@ -1,6 +1,3 @@
-//go:build go1.18
-// +build go1.18
-
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
@@ -96,5 +93,26 @@ func (sc SettingSelector) toGeneratedGetKeyValues() *generated.AzureAppConfigura
 		Label:  sc.LabelFilter,
 		Select: sf,
 		Tags:   sc.TagsFilter,
+	}
+}
+
+func (sc SettingSelector) toGeneratedCheckKeyValues() *generated.AzureAppConfigurationClientCheckKeyValuesOptions {
+	var dt *string
+	if sc.AcceptDateTime != nil {
+		str := sc.AcceptDateTime.Format(timeFormat)
+		dt = &str
+	}
+
+	sf := make([]SettingFields, len(sc.Fields))
+	for i := range sc.Fields {
+		sf[i] = SettingFields(sc.Fields[i])
+	}
+
+	return &generated.AzureAppConfigurationClientCheckKeyValuesOptions{
+		AcceptDatetime: dt,
+		Key:            sc.KeyFilter,
+		Label:          sc.LabelFilter,
+		Select:         sf,
+		Tags:           sc.TagsFilter,
 	}
 }

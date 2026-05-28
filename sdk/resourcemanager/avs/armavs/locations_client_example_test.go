@@ -12,7 +12,7 @@ import (
 	"log"
 )
 
-// Generated from example definition: 2024-09-01/Locations_CheckQuotaAvailability.json
+// Generated from example definition: 2025-09-01/Locations_CheckQuotaAvailability.json
 func ExampleLocationsClient_CheckQuotaAvailability() {
 	cred, err := azidentity.NewDefaultAzureCredential(nil)
 	if err != nil {
@@ -31,7 +31,7 @@ func ExampleLocationsClient_CheckQuotaAvailability() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armavs.LocationsClientCheckQuotaAvailabilityResponse{
-	// 	Quota: &armavs.Quota{
+	// 	Quota: armavs.Quota{
 	// 		HostsRemaining: map[string]*int32{
 	// 			"AV20": to.Ptr[int32](0),
 	// 			"AV36": to.Ptr[int32](999),
@@ -41,7 +41,7 @@ func ExampleLocationsClient_CheckQuotaAvailability() {
 	// }
 }
 
-// Generated from example definition: 2024-09-01/Locations_CheckTrialAvailability.json
+// Generated from example definition: 2025-09-01/Locations_CheckTrialAvailability.json
 func ExampleLocationsClient_CheckTrialAvailability_locationsCheckTrialAvailability() {
 	cred, err := azidentity.NewDefaultAzureCredential(nil)
 	if err != nil {
@@ -60,14 +60,14 @@ func ExampleLocationsClient_CheckTrialAvailability_locationsCheckTrialAvailabili
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armavs.LocationsClientCheckTrialAvailabilityResponse{
-	// 	Trial: &armavs.Trial{
+	// 	Trial: armavs.Trial{
 	// 		Status: to.Ptr(armavs.TrialStatusTrialAvailable),
 	// 		AvailableHosts: to.Ptr[int32](4),
 	// 	},
 	// }
 }
 
-// Generated from example definition: 2024-09-01/Locations_CheckTrialAvailabilityWithSku.json
+// Generated from example definition: 2025-09-01/Locations_CheckTrialAvailabilityWithSku.json
 func ExampleLocationsClient_CheckTrialAvailability_locationsCheckTrialAvailabilityWithSku() {
 	cred, err := azidentity.NewDefaultAzureCredential(nil)
 	if err != nil {
@@ -89,7 +89,7 @@ func ExampleLocationsClient_CheckTrialAvailability_locationsCheckTrialAvailabili
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armavs.LocationsClientCheckTrialAvailabilityResponse{
-	// 	Trial: &armavs.Trial{
+	// 	Trial: armavs.Trial{
 	// 		Status: to.Ptr(armavs.TrialStatusTrialAvailable),
 	// 		AvailableHosts: to.Ptr[int32](4),
 	// 	},

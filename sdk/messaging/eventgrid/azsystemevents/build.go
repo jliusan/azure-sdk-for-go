@@ -4,7 +4,12 @@
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
+//go:generate gofmt -w .
 //go:generate go run ./internal/generate
 //go:generate gofmt -w .
 
 package azsystemevents
+
+// to silence the linter as these values aren't used (no pipeline)
+var _ = moduleName
+var _ = moduleVersion

@@ -12,7 +12,7 @@ import (
 	"log"
 )
 
-// Generated from example definition: 2024-09-01/Clusters_CreateOrUpdate.json
+// Generated from example definition: 2025-09-01/Clusters_CreateOrUpdate.json
 func ExampleClustersClient_BeginCreateOrUpdate() {
 	cred, err := azidentity.NewDefaultAzureCredential(nil)
 	if err != nil {
@@ -36,13 +36,13 @@ func ExampleClustersClient_BeginCreateOrUpdate() {
 	}
 	res, err := poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 	// You could use response here. We use blank identifier for just demo purposes.
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armavs.ClustersClientCreateOrUpdateResponse{
-	// 	Cluster: &armavs.Cluster{
+	// 	Cluster: armavs.Cluster{
 	// 		ID: to.Ptr("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/group1/providers/Microsoft.AVS/privateClouds/cloud1/clusters/cluster1"),
 	// 		Name: to.Ptr("cluster1"),
 	// 		SKU: &armavs.SKU{
@@ -62,7 +62,7 @@ func ExampleClustersClient_BeginCreateOrUpdate() {
 	// }
 }
 
-// Generated from example definition: 2024-09-01/Clusters_Delete.json
+// Generated from example definition: 2025-09-01/Clusters_Delete.json
 func ExampleClustersClient_BeginDelete() {
 	cred, err := azidentity.NewDefaultAzureCredential(nil)
 	if err != nil {
@@ -79,7 +79,7 @@ func ExampleClustersClient_BeginDelete() {
 	}
 	res, err := poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 	// You could use response here. We use blank identifier for just demo purposes.
 	_ = res
@@ -88,7 +88,7 @@ func ExampleClustersClient_BeginDelete() {
 	// }
 }
 
-// Generated from example definition: 2024-09-01/Clusters_Get.json
+// Generated from example definition: 2025-09-01/Clusters_Get.json
 func ExampleClustersClient_Get() {
 	cred, err := azidentity.NewDefaultAzureCredential(nil)
 	if err != nil {
@@ -107,7 +107,7 @@ func ExampleClustersClient_Get() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armavs.ClustersClientGetResponse{
-	// 	Cluster: &armavs.Cluster{
+	// 	Cluster: armavs.Cluster{
 	// 		ID: to.Ptr("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/group1/providers/Microsoft.AVS/privateClouds/cloud1/clusters/cluster1"),
 	// 		Name: to.Ptr("cluster1"),
 	// 		SKU: &armavs.SKU{
@@ -128,7 +128,7 @@ func ExampleClustersClient_Get() {
 	// }
 }
 
-// Generated from example definition: 2024-09-01/Clusters_List.json
+// Generated from example definition: 2025-09-01/Clusters_List.json
 func ExampleClustersClient_NewListPager() {
 	cred, err := azidentity.NewDefaultAzureCredential(nil)
 	if err != nil {
@@ -176,7 +176,7 @@ func ExampleClustersClient_NewListPager() {
 	}
 }
 
-// Generated from example definition: 2024-09-01/Clusters_ListZones.json
+// Generated from example definition: 2025-09-01/Clusters_ListZones.json
 func ExampleClustersClient_ListZones_clustersListZones() {
 	cred, err := azidentity.NewDefaultAzureCredential(nil)
 	if err != nil {
@@ -195,7 +195,7 @@ func ExampleClustersClient_ListZones_clustersListZones() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armavs.ClustersClientListZonesResponse{
-	// 	ClusterZoneList: &armavs.ClusterZoneList{
+	// 	ClusterZoneList: armavs.ClusterZoneList{
 	// 		Zones: []*armavs.ClusterZone{
 	// 			{
 	// 				Hosts: []*string{
@@ -210,7 +210,7 @@ func ExampleClustersClient_ListZones_clustersListZones() {
 	// }
 }
 
-// Generated from example definition: 2024-09-01/Clusters_ListZones_Stretched.json
+// Generated from example definition: 2025-09-01/Clusters_ListZones_Stretched.json
 func ExampleClustersClient_ListZones_clustersListZonesStretched() {
 	cred, err := azidentity.NewDefaultAzureCredential(nil)
 	if err != nil {
@@ -229,7 +229,7 @@ func ExampleClustersClient_ListZones_clustersListZonesStretched() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armavs.ClustersClientListZonesResponse{
-	// 	ClusterZoneList: &armavs.ClusterZoneList{
+	// 	ClusterZoneList: armavs.ClusterZoneList{
 	// 		Zones: []*armavs.ClusterZone{
 	// 			{
 	// 				Hosts: []*string{
@@ -252,7 +252,7 @@ func ExampleClustersClient_ListZones_clustersListZonesStretched() {
 	// }
 }
 
-// Generated from example definition: 2024-09-01/Clusters_Update.json
+// Generated from example definition: 2025-09-01/Clusters_Update.json
 func ExampleClustersClient_BeginUpdate() {
 	cred, err := azidentity.NewDefaultAzureCredential(nil)
 	if err != nil {
@@ -273,13 +273,13 @@ func ExampleClustersClient_BeginUpdate() {
 	}
 	res, err := poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 	// You could use response here. We use blank identifier for just demo purposes.
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armavs.ClustersClientUpdateResponse{
-	// 	Cluster: &armavs.Cluster{
+	// 	Cluster: armavs.Cluster{
 	// 		ID: to.Ptr("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/group1/providers/Microsoft.AVS/privateClouds/cloud1/clusters/cluster1"),
 	// 		Name: to.Ptr("cluster1"),
 	// 		SKU: &armavs.SKU{

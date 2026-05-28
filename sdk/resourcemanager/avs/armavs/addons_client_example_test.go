@@ -12,7 +12,7 @@ import (
 	"log"
 )
 
-// Generated from example definition: 2024-09-01/Addons_CreateOrUpdate_ArcReg.json
+// Generated from example definition: 2025-09-01/Addons_CreateOrUpdate_ArcReg.json
 func ExampleAddonsClient_BeginCreateOrUpdate_addonsCreateOrUpdateArcReg() {
 	cred, err := azidentity.NewDefaultAzureCredential(nil)
 	if err != nil {
@@ -34,13 +34,13 @@ func ExampleAddonsClient_BeginCreateOrUpdate_addonsCreateOrUpdateArcReg() {
 	}
 	res, err := poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 	// You could use response here. We use blank identifier for just demo purposes.
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armavs.AddonsClientCreateOrUpdateResponse{
-	// 	Addon: &armavs.Addon{
+	// 	Addon: armavs.Addon{
 	// 		ID: to.Ptr("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/group1/providers/Microsoft.AVS/privateClouds/cloud1/addons/arc"),
 	// 		Name: to.Ptr("arc"),
 	// 		Properties: &armavs.AddonArcProperties{
@@ -53,7 +53,7 @@ func ExampleAddonsClient_BeginCreateOrUpdate_addonsCreateOrUpdateArcReg() {
 	// }
 }
 
-// Generated from example definition: 2024-09-01/Addons_CreateOrUpdate_HCX.json
+// Generated from example definition: 2025-09-01/Addons_CreateOrUpdate_HCX.json
 func ExampleAddonsClient_BeginCreateOrUpdate_addonsCreateOrUpdateHcx() {
 	cred, err := azidentity.NewDefaultAzureCredential(nil)
 	if err != nil {
@@ -75,13 +75,13 @@ func ExampleAddonsClient_BeginCreateOrUpdate_addonsCreateOrUpdateHcx() {
 	}
 	res, err := poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 	// You could use response here. We use blank identifier for just demo purposes.
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armavs.AddonsClientCreateOrUpdateResponse{
-	// 	Addon: &armavs.Addon{
+	// 	Addon: armavs.Addon{
 	// 		ID: to.Ptr("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/group1/providers/Microsoft.AVS/privateClouds/cloud1/addons/hcx"),
 	// 		Name: to.Ptr("hcx"),
 	// 		Properties: &armavs.AddonHcxProperties{
@@ -94,7 +94,7 @@ func ExampleAddonsClient_BeginCreateOrUpdate_addonsCreateOrUpdateHcx() {
 	// }
 }
 
-// Generated from example definition: 2024-09-01/Addons_CreateOrUpdate_HCX_With_Networks.json
+// Generated from example definition: 2025-09-01/Addons_CreateOrUpdate_HCX_With_Networks.json
 func ExampleAddonsClient_BeginCreateOrUpdate_addonsCreateOrUpdateHcxWithNetworks() {
 	cred, err := azidentity.NewDefaultAzureCredential(nil)
 	if err != nil {
@@ -118,13 +118,13 @@ func ExampleAddonsClient_BeginCreateOrUpdate_addonsCreateOrUpdateHcxWithNetworks
 	}
 	res, err := poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 	// You could use response here. We use blank identifier for just demo purposes.
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armavs.AddonsClientCreateOrUpdateResponse{
-	// 	Addon: &armavs.Addon{
+	// 	Addon: armavs.Addon{
 	// 		ID: to.Ptr("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/group1/providers/Microsoft.AVS/privateClouds/cloud1/addons/hcx"),
 	// 		Name: to.Ptr("hcx"),
 	// 		Properties: &armavs.AddonHcxProperties{
@@ -139,7 +139,7 @@ func ExampleAddonsClient_BeginCreateOrUpdate_addonsCreateOrUpdateHcxWithNetworks
 	// }
 }
 
-// Generated from example definition: 2024-09-01/Addons_CreateOrUpdate_SRM.json
+// Generated from example definition: 2025-09-01/Addons_CreateOrUpdate_SRM.json
 func ExampleAddonsClient_BeginCreateOrUpdate_addonsCreateOrUpdateSrm() {
 	cred, err := azidentity.NewDefaultAzureCredential(nil)
 	if err != nil {
@@ -161,13 +161,13 @@ func ExampleAddonsClient_BeginCreateOrUpdate_addonsCreateOrUpdateSrm() {
 	}
 	res, err := poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 	// You could use response here. We use blank identifier for just demo purposes.
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armavs.AddonsClientCreateOrUpdateResponse{
-	// 	Addon: &armavs.Addon{
+	// 	Addon: armavs.Addon{
 	// 		ID: to.Ptr("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/group1/providers/Microsoft.AVS/privateClouds/cloud1/addons/srm"),
 	// 		Name: to.Ptr("srm"),
 	// 		Properties: &armavs.AddonSrmProperties{
@@ -180,7 +180,7 @@ func ExampleAddonsClient_BeginCreateOrUpdate_addonsCreateOrUpdateSrm() {
 	// }
 }
 
-// Generated from example definition: 2024-09-01/Addons_CreateOrUpdate_VR.json
+// Generated from example definition: 2025-09-01/Addons_CreateOrUpdate_VR.json
 func ExampleAddonsClient_BeginCreateOrUpdate_addonsCreateOrUpdateVr() {
 	cred, err := azidentity.NewDefaultAzureCredential(nil)
 	if err != nil {
@@ -202,13 +202,13 @@ func ExampleAddonsClient_BeginCreateOrUpdate_addonsCreateOrUpdateVr() {
 	}
 	res, err := poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 	// You could use response here. We use blank identifier for just demo purposes.
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armavs.AddonsClientCreateOrUpdateResponse{
-	// 	Addon: &armavs.Addon{
+	// 	Addon: armavs.Addon{
 	// 		ID: to.Ptr("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/group1/providers/Microsoft.AVS/privateClouds/cloud1/addons/vr"),
 	// 		Name: to.Ptr("vr"),
 	// 		Properties: &armavs.AddonVrProperties{
@@ -221,7 +221,7 @@ func ExampleAddonsClient_BeginCreateOrUpdate_addonsCreateOrUpdateVr() {
 	// }
 }
 
-// Generated from example definition: 2024-09-01/Addons_Delete.json
+// Generated from example definition: 2025-09-01/Addons_Delete.json
 func ExampleAddonsClient_BeginDelete() {
 	cred, err := azidentity.NewDefaultAzureCredential(nil)
 	if err != nil {
@@ -238,7 +238,7 @@ func ExampleAddonsClient_BeginDelete() {
 	}
 	res, err := poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 	// You could use response here. We use blank identifier for just demo purposes.
 	_ = res
@@ -247,7 +247,7 @@ func ExampleAddonsClient_BeginDelete() {
 	// }
 }
 
-// Generated from example definition: 2024-09-01/Addons_Get_ArcReg.json
+// Generated from example definition: 2025-09-01/Addons_Get_ArcReg.json
 func ExampleAddonsClient_Get_addonsGetArcReg() {
 	cred, err := azidentity.NewDefaultAzureCredential(nil)
 	if err != nil {
@@ -266,7 +266,7 @@ func ExampleAddonsClient_Get_addonsGetArcReg() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armavs.AddonsClientGetResponse{
-	// 	Addon: &armavs.Addon{
+	// 	Addon: armavs.Addon{
 	// 		ID: to.Ptr("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/group1/providers/Microsoft.AVS/privateClouds/cloud1/addons/arc"),
 	// 		Name: to.Ptr("arc"),
 	// 		Properties: &armavs.AddonArcProperties{
@@ -279,7 +279,7 @@ func ExampleAddonsClient_Get_addonsGetArcReg() {
 	// }
 }
 
-// Generated from example definition: 2024-09-01/Addons_Get_HCX.json
+// Generated from example definition: 2025-09-01/Addons_Get_HCX.json
 func ExampleAddonsClient_Get_addonsGetHcx() {
 	cred, err := azidentity.NewDefaultAzureCredential(nil)
 	if err != nil {
@@ -298,7 +298,7 @@ func ExampleAddonsClient_Get_addonsGetHcx() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armavs.AddonsClientGetResponse{
-	// 	Addon: &armavs.Addon{
+	// 	Addon: armavs.Addon{
 	// 		ID: to.Ptr("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/group1/providers/Microsoft.AVS/privateClouds/cloud1/addons/hcx"),
 	// 		Name: to.Ptr("hcx"),
 	// 		Properties: &armavs.AddonHcxProperties{
@@ -311,7 +311,7 @@ func ExampleAddonsClient_Get_addonsGetHcx() {
 	// }
 }
 
-// Generated from example definition: 2024-09-01/Addons_Get_HCX_With_Networks.json
+// Generated from example definition: 2025-09-01/Addons_Get_HCX_With_Networks.json
 func ExampleAddonsClient_Get_addonsGetHcxWithNetworks() {
 	cred, err := azidentity.NewDefaultAzureCredential(nil)
 	if err != nil {
@@ -330,7 +330,7 @@ func ExampleAddonsClient_Get_addonsGetHcxWithNetworks() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armavs.AddonsClientGetResponse{
-	// 	Addon: &armavs.Addon{
+	// 	Addon: armavs.Addon{
 	// 		ID: to.Ptr("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/group1/providers/Microsoft.AVS/privateClouds/cloud1/addons/hcx"),
 	// 		Name: to.Ptr("hcx"),
 	// 		Properties: &armavs.AddonHcxProperties{
@@ -345,7 +345,7 @@ func ExampleAddonsClient_Get_addonsGetHcxWithNetworks() {
 	// }
 }
 
-// Generated from example definition: 2024-09-01/Addons_Get_SRM.json
+// Generated from example definition: 2025-09-01/Addons_Get_SRM.json
 func ExampleAddonsClient_Get_addonsGetSrm() {
 	cred, err := azidentity.NewDefaultAzureCredential(nil)
 	if err != nil {
@@ -364,7 +364,7 @@ func ExampleAddonsClient_Get_addonsGetSrm() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armavs.AddonsClientGetResponse{
-	// 	Addon: &armavs.Addon{
+	// 	Addon: armavs.Addon{
 	// 		ID: to.Ptr("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/group1/providers/Microsoft.AVS/privateClouds/cloud1/addons/srm"),
 	// 		Name: to.Ptr("srm"),
 	// 		Properties: &armavs.AddonSrmProperties{
@@ -377,7 +377,7 @@ func ExampleAddonsClient_Get_addonsGetSrm() {
 	// }
 }
 
-// Generated from example definition: 2024-09-01/Addons_Get_VR.json
+// Generated from example definition: 2025-09-01/Addons_Get_VR.json
 func ExampleAddonsClient_Get_addonsGetVr() {
 	cred, err := azidentity.NewDefaultAzureCredential(nil)
 	if err != nil {
@@ -396,7 +396,7 @@ func ExampleAddonsClient_Get_addonsGetVr() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armavs.AddonsClientGetResponse{
-	// 	Addon: &armavs.Addon{
+	// 	Addon: armavs.Addon{
 	// 		ID: to.Ptr("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/group1/providers/Microsoft.AVS/privateClouds/cloud1/addons/vr"),
 	// 		Name: to.Ptr("vr"),
 	// 		Properties: &armavs.AddonVrProperties{
@@ -409,7 +409,7 @@ func ExampleAddonsClient_Get_addonsGetVr() {
 	// }
 }
 
-// Generated from example definition: 2024-09-01/Addons_List.json
+// Generated from example definition: 2025-09-01/Addons_List.json
 func ExampleAddonsClient_NewListPager() {
 	cred, err := azidentity.NewDefaultAzureCredential(nil)
 	if err != nil {
